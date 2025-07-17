@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://x0k70uqxeyw"]
+
+[ext_resource type="PackedScene" uid="uid://pogl1he7tcpw" path="res://game/actors/actor_base.tscn" id="1_0prjm"]
+[ext_resource type="Material" uid="uid://cw2hw54wmqfst" path="res://game/resources/materials/flash_material.tres" id="2_6nojy"]
+[ext_resource type="Texture2D" uid="uid://ccr86jc4sbgk5" path="res://game/actors/players/assets/visual/idle0.png" id="2_e4d23"]
+[ext_resource type="PackedScene" uid="uid://b3shxk2imtdsb" path="res://game/actors/actor_components/health/health_manager.tscn" id="2_kxsn3"]
+[ext_resource type="Script" uid="uid://bepiw28r7wvde" path="res://game/actors/actor_components/flasher.gd" id="5_qgoq5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j6fgu"]
+size = Vector2(28, 69)
+
+[node name="enemy_base" instance=ExtResource("1_0prjm")]
+material = ExtResource("2_6nojy")
+collision_layer = 4
+
+[node name="main_sprite" parent="." index="1"]
+position = Vector2(0, -1)
+texture = ExtResource("2_e4d23")
+
+[node name="collider" parent="." index="2"]
+position = Vector2(0, 13)
+
+[node name="health_manager" parent="." index="3" instance=ExtResource("2_kxsn3")]
+max_health = 15.0
+_flasher_node_path = NodePath("../flasher")
+
+[node name="hurt_box" parent="health_manager" index="0"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_j6fgu")
+
+[node name="flasher" type="Node2D" parent="." index="4"]
+script = ExtResource("5_qgoq5")
+
+[connection signal="area_entered" from="health_manager" to="." method="_on_health_manager_area_entered"]
+
+[editable path="health_manager"]

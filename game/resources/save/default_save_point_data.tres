@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SavePointData" load_steps=2 format=3 uid="uid://smw5ophq8p0q"]
+
+[ext_resource type="Script" uid="uid://db3o6gegi78aq" path="res://game/autoloads/save/save_point_data.gd" id="1_ahwxd"]
+
+[resource]
+script = ExtResource("1_ahwxd")
+save_point_name = "Start"
+save_scene_uid_path = "uid://mnyhpvr3he70"
+save_position = Vector2(-100, 13)
+metadata/_custom_type_script = "uid://db3o6gegi78aq"

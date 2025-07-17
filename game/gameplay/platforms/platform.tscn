@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://galeqqdwxc80"]
+
+[ext_resource type="Texture2D" uid="uid://px8mm7k2rt8e" path="res://game/gameplay/platforms/assets/visual/platform.png" id="1_85mn0"]
+[ext_resource type="Script" uid="uid://c6qhiswxrtrud" path="res://game/gameplay/platforms/platform.gd" id="1_wsfay"]
+
+[sub_resource type="Curve2D" id="Curve2D_85mn0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 600, 0)
+}
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_85mn0"]
+resource_name = "move"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("follower:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ar33"]
+_data = {
+&"move": SubResource("Animation_85mn0")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ar33"]
+size = Vector2(63, 16)
+
+[node name="platform" type="Path2D"]
+curve = SubResource("Curve2D_85mn0")
+script = ExtResource("1_wsfay")
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7ar33")
+}
+
+[node name="follower" type="PathFollow2D" parent="."]
+rotation = -0.359647
+rotates = false
+
+[node name="remote" type="RemoteTransform2D" parent="follower"]
+remote_path = NodePath("../../body")
+update_rotation = false
+update_scale = false
+
+[node name="body" type="AnimatableBody2D" parent="."]
+position = Vector2(1, -2)
+collision_layer = 2
+collision_mask = 69
+
+[node name="sprite" type="Sprite2D" parent="body"]
+texture = ExtResource("1_85mn0")
+
+[node name="collision" type="CollisionShape2D" parent="body"]
+shape = SubResource("RectangleShape2D_7ar33")

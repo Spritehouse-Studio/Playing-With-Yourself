@@ -1,0 +1,56 @@
+name: Export and Publish
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [main]
+jobs:
+  export_game:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    name: Export game
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Get Godot version
+        id: get_godot_version
+        run: |
+          query_start="config\/features=PackedStringArray\(\""
+          query_end="\", \".*\"\)"
+          grep_query="^$query_start[0-9]\.[0-9](\.[0-9])?$query_end$"
+          version=$(grep --perl-regexp "$query_start" project.godot | sed --regexp-extended "s#$query_start|$query_end##g")
+          echo "version=$version" >> $GITHUB_OUTPUT
+      - name: Export
+        id: export
+        uses: firebelley/godot-export@v6.0.0
+        with:
+          godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/${{ steps.get_godot_version.outputs.version }}-stable/Godot_v${{ steps.get_godot_version.outputs.version }}-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/${{ steps.get_godot_version.outputs.version }}-stable/Godot_v${{ steps.get_godot_version.outputs.version }}-stable_export_templates.tpz
+          relative_project_path: ./
+          archive_output: true
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacts
+          path: ${{ steps.export.outputs.archive_directory }}/*
+  deploy:
+    needs: export_game
+    if: success() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        channel: [html5, linux, osx, windows]
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: artifacts
+          path: ./
+      - name: Deploy ${{ matrix.channel }} build
+        uses: yeslayla/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: ${{ matrix.channel }}
+          ITCH_GAME: ${{ secrets.ITCH_GAME }}
+          ITCH_USER: ${{ secrets.ITCH_USER }}
+          PACKAGE: ${{ matrix.channel }}.zip

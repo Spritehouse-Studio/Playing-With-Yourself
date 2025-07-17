@@ -1,0 +1,140 @@
+[gd_scene load_steps=5 format=3 uid="uid://8cpaose5wjaw"]
+
+[ext_resource type="LabelSettings" uid="uid://cvqg7onn3fwwc" path="res://game/ui/title_label_settings.tres" id="1_f1pj2"]
+[ext_resource type="LabelSettings" uid="uid://cbfahvq20rns5" path="res://game/ui/default_label_settings.tres" id="1_ka4v5"]
+[ext_resource type="Script" uid="uid://c6wegej33muke" path="res://game/ui/stackable/settings/audio_settings_panel.gd" id="1_rxjar"]
+[ext_resource type="PackedScene" uid="uid://hhh5ydqhefgu" path="res://game/ui/menu_button/menu_button.tscn" id="2_teshg"]
+
+[node name="audio_settings_panel" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -135.0
+offset_right = -240.0
+offset_bottom = -135.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_rxjar")
+
+[node name="panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 480.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin_container" type="MarginContainer" parent="panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="audio_settings_list" type="VBoxContainer" parent="panel/margin_container"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="title" type="Label" parent="panel/margin_container/audio_settings_list"]
+layout_mode = 2
+text = "Audio"
+label_settings = ExtResource("1_f1pj2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="master_volume_container" type="HBoxContainer" parent="panel/margin_container/audio_settings_list"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+
+[node name="master_volume_label" type="Label" parent="panel/margin_container/audio_settings_list/master_volume_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Master Volume"
+label_settings = ExtResource("1_ka4v5")
+vertical_alignment = 1
+
+[node name="master_volume_slider" type="HSlider" parent="panel/margin_container/audio_settings_list/master_volume_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+
+[node name="value_label" type="Label" parent="panel/margin_container/audio_settings_list/master_volume_container"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "100%"
+label_settings = ExtResource("1_ka4v5")
+
+[node name="music_volume_container" type="HBoxContainer" parent="panel/margin_container/audio_settings_list"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+
+[node name="music_volume_label" type="Label" parent="panel/margin_container/audio_settings_list/music_volume_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music Volume"
+label_settings = ExtResource("1_ka4v5")
+vertical_alignment = 1
+
+[node name="music_volume_slider" type="HSlider" parent="panel/margin_container/audio_settings_list/music_volume_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+
+[node name="value_label" type="Label" parent="panel/margin_container/audio_settings_list/music_volume_container"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "100%"
+label_settings = ExtResource("1_ka4v5")
+
+[node name="sfx_volume_container" type="HBoxContainer" parent="panel/margin_container/audio_settings_list"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+
+[node name="sfx_volume_label" type="Label" parent="panel/margin_container/audio_settings_list/sfx_volume_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SFX Volume"
+label_settings = ExtResource("1_ka4v5")
+vertical_alignment = 1
+
+[node name="sfx_volume_slider" type="HSlider" parent="panel/margin_container/audio_settings_list/sfx_volume_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+
+[node name="value_label" type="Label" parent="panel/margin_container/audio_settings_list/sfx_volume_container"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "100%"
+label_settings = ExtResource("1_ka4v5")
+
+[node name="spacer" type="Control" parent="panel/margin_container/audio_settings_list"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="back_button" parent="panel/margin_container/audio_settings_list" instance=ExtResource("2_teshg")]
+layout_mode = 2
+text = "Back"
+
+[connection signal="value_changed" from="panel/margin_container/audio_settings_list/master_volume_container/master_volume_slider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="panel/margin_container/audio_settings_list/music_volume_container/music_volume_slider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="panel/margin_container/audio_settings_list/sfx_volume_container/sfx_volume_slider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="pressed" from="panel/margin_container/audio_settings_list/back_button" to="." method="_on_back_button_pressed"]

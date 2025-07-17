@@ -1,0 +1,143 @@
+[gd_scene load_steps=10 format=3 uid="uid://b2dacqs05bolx"]
+
+[ext_resource type="Shader" uid="uid://cpetjacjh7au2" path="res://game/resources/shaders/cutout.gdshader" id="1_mdsuq"]
+[ext_resource type="Script" uid="uid://bg4wv7ju5nvke" path="res://game/ui/fader/fader.gd" id="1_xsx16"]
+[ext_resource type="Texture2D" uid="uid://b8kyp765wdb6y" path="res://game/ui/fader/cutout.png" id="2_6q1h4"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ehkfh"]
+viewport_path = NodePath("shape_viewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lyv4h"]
+resource_local_to_scene = true
+shader = ExtResource("1_mdsuq")
+shader_parameter/cutout_texture = SubResource("ViewportTexture_ehkfh")
+
+[sub_resource type="Animation" id="Animation_xsx16"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shape_viewport/shape:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("shape_viewport/shape:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(173, -141)]
+}
+
+[sub_resource type="Animation" id="Animation_km0uy"]
+resource_name = "fade_in"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shape_viewport/shape:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("shape_viewport/shape:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(692, -1024), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mdsuq"]
+resource_name = "fade_out"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shape_viewport/shape:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("shape_viewport/shape:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(692, -1024)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6q1h4"]
+_data = {
+&"RESET": SubResource("Animation_xsx16"),
+&"fade_in": SubResource("Animation_km0uy"),
+&"fade_out": SubResource("Animation_mdsuq")
+}
+
+[node name="fader" type="ColorRect"]
+material = SubResource("ShaderMaterial_lyv4h")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.101961, 0.101961, 0.101961, 1)
+script = ExtResource("1_xsx16")
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6q1h4")
+}
+
+[node name="shape_viewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(960, 540)
+
+[node name="shape" type="TextureRect" parent="shape_viewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 173.0
+offset_top = -141.0
+offset_right = -173.0
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(480, 270)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_6q1h4")
+
+[connection signal="animation_finished" from="animator" to="." method="_on_animator_animation_finished"]

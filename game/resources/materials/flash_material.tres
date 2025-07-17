@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cw2hw54wmqfst"]
+
+[ext_resource type="Shader" uid="uid://ck6c72yi15g8r" path="res://game/resources/shaders/flash.gdshader" id="1_segrv"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_segrv")
+shader_parameter/color_a = Color(1, 1, 1, 1)
+shader_parameter/color_b = Color(1, 1, 1, 1)
+shader_parameter/colors_affect_alpha = false
+shader_parameter/flash_amount = 0.0
+shader_parameter/flash_speed = 1.0
+shader_parameter/transparency = 1.0
+shader_parameter/intensity = 0.0

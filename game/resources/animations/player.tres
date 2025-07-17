@@ -1,0 +1,151 @@
+[gd_resource type="AnimationLibrary" load_steps=19 format=3 uid="uid://cso3anqs8wygb"]
+
+[ext_resource type="Texture2D" uid="uid://celv8dupakxmh" path="res://game/actors/players/assets/visual/fall0.png" id="1_ih4o4"]
+[ext_resource type="Texture2D" uid="uid://ccr86jc4sbgk5" path="res://game/actors/players/assets/visual/idle0.png" id="2_f16vv"]
+[ext_resource type="Texture2D" uid="uid://5lj144tr5n3" path="res://game/actors/players/assets/visual/jump.png" id="3_r8fxm"]
+[ext_resource type="Texture2D" uid="uid://h2yq4oib7mq1" path="res://game/actors/players/assets/visual/lever0.png" id="4_8kuh3"]
+[ext_resource type="Texture2D" uid="uid://xs5djcntmuul" path="res://game/actors/players/assets/visual/lever1.png" id="5_5lwcc"]
+[ext_resource type="Texture2D" uid="uid://c6846702y8fp5" path="res://game/actors/players/assets/visual/run0.png" id="6_7wrxn"]
+[ext_resource type="Texture2D" uid="uid://bt8i7o24v0bt" path="res://game/actors/players/assets/visual/run1.png" id="7_lqfci"]
+[ext_resource type="Texture2D" uid="uid://dknt5rpsu01qa" path="res://game/actors/players/assets/visual/run2.png" id="8_x8o12"]
+[ext_resource type="Texture2D" uid="uid://bliixfmvr83b4" path="res://game/actors/players/assets/visual/run3.png" id="9_qsdqe"]
+[ext_resource type="Texture2D" uid="uid://tx6iq2uuqlt0" path="res://game/actors/players/assets/visual/slash0.png" id="10_f16vv"]
+[ext_resource type="Texture2D" uid="uid://bx6qhywqi2j06" path="res://game/actors/players/assets/visual/slash1.png" id="11_r8fxm"]
+
+[sub_resource type="Animation" id="Animation_r8fxm"]
+resource_name = "attack"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("10_f16vv"), ExtResource("11_r8fxm")]
+}
+
+[sub_resource type="Animation" id="Animation_yyh4q"]
+resource_name = "fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_ih4o4")]
+}
+
+[sub_resource type="Animation" id="Animation_lu8in"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_f16vv")]
+}
+
+[sub_resource type="Animation" id="Animation_r6wc6"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_r8fxm")]
+}
+
+[sub_resource type="Animation" id="Animation_dvysf"]
+resource_name = "lever_pull"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_8kuh3"), ExtResource("5_5lwcc")]
+}
+
+[sub_resource type="Animation" id="Animation_8kuh3"]
+resource_name = "lever_release"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("5_5lwcc"), ExtResource("4_8kuh3")]
+}
+
+[sub_resource type="Animation" id="Animation_0jout"]
+resource_name = "move"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_7wrxn"), ExtResource("7_lqfci"), ExtResource("8_x8o12"), ExtResource("9_qsdqe")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("mover")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_play_footstep"
+}, {
+"args": [],
+"method": &"_play_footstep"
+}]
+}
+
+[resource]
+_data = {
+&"attack": SubResource("Animation_r8fxm"),
+&"fall": SubResource("Animation_yyh4q"),
+&"idle": SubResource("Animation_lu8in"),
+&"jump": SubResource("Animation_r6wc6"),
+&"lever_pull": SubResource("Animation_dvysf"),
+&"lever_release": SubResource("Animation_8kuh3"),
+&"move": SubResource("Animation_0jout")
+}

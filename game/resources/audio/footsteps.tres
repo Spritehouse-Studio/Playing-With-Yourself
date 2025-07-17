@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RandomAudio" load_steps=4 format=3 uid="uid://4nv1exl7dv3t"]
+
+[ext_resource type="AudioStream" uid="uid://beliy7qfx7hvq" path="res://game/actors/players/assets/audio/footstep0.ogg" id="1_08tgs"]
+[ext_resource type="AudioStream" uid="uid://dhnwhpcrcbcjj" path="res://game/actors/players/assets/audio/footstep1.ogg" id="2_58sny"]
+[ext_resource type="Script" uid="uid://c8f516gvbe2cm" path="res://game/audio/random_audio.gd" id="3_d8aa4"]
+
+[resource]
+script = ExtResource("3_d8aa4")
+clips = Array[AudioStream]([ExtResource("1_08tgs"), ExtResource("2_58sny")])
+metadata/_custom_type_script = "uid://c8f516gvbe2cm"

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy55rdlo2lbqw"]
+
+[ext_resource type="Script" uid="uid://chn7yxc0yreom" path="res://game/autoloads/life/life_manager.gd" id="1_h5iqv"]
+
+[node name="life_manager" type="Timer"]
+one_shot = true
+script = ExtResource("1_h5iqv")

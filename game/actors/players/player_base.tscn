@@ -1,0 +1,94 @@
+[gd_scene load_steps=18 format=3 uid="uid://bx46gngy5shiy"]
+
+[ext_resource type="PackedScene" uid="uid://pogl1he7tcpw" path="res://game/actors/actor_base.tscn" id="1_6kfqv"]
+[ext_resource type="Script" uid="uid://dmqc5t036sbfx" path="res://game/actors/players/player_base.gd" id="2_feufw"]
+[ext_resource type="Texture2D" uid="uid://dknt5rpsu01qa" path="res://game/actors/players/assets/visual/run2.png" id="3_lu8in"]
+[ext_resource type="Script" uid="uid://cs0jyiac5mouy" path="res://game/actors/actor_components/facer.gd" id="3_pvgrm"]
+[ext_resource type="Script" uid="uid://cpuyf5qvw5gjg" path="res://game/actors/actor_components/grounder/grounder.gd" id="4_m3h7j"]
+[ext_resource type="Script" uid="uid://ctsdq0ccv1th3" path="res://game/actors/actor_components/input_controller.gd" id="5_lcam0"]
+[ext_resource type="Script" uid="uid://3ujews4wnd3k" path="res://game/actors/actor_components/jumper.gd" id="6_24nif"]
+[ext_resource type="Script" uid="uid://yfxg5mr3t8nv" path="res://game/actors/actor_components/combat/weapon_wielder.gd" id="8_h6qno"]
+[ext_resource type="AudioStream" uid="uid://8emhlcmqmlmr" path="res://game/actors/players/assets/audio/jump.ogg" id="9_pnoeb"]
+[ext_resource type="AudioStream" uid="uid://dwgyr1o7qb1b2" path="res://game/actors/players/assets/audio/land.ogg" id="10_lu8in"]
+[ext_resource type="Resource" uid="uid://4nv1exl7dv3t" path="res://game/resources/audio/footsteps.tres" id="12_lu8in"]
+[ext_resource type="PackedScene" uid="uid://b3shxk2imtdsb" path="res://game/actors/actor_components/health/health_manager.tscn" id="12_y20ih"]
+[ext_resource type="PackedScene" uid="uid://cekes40tgg773" path="res://game/gameplay/combat/slash/slash.tscn" id="14_lu8in"]
+[ext_resource type="Script" uid="uid://bqt5065uevmbi" path="res://game/actors/actor_components/mover/ground_mover.gd" id="18_nx0tv"]
+[ext_resource type="PackedScene" uid="uid://bxj8b8vg7eenn" path="res://game/actors/actor_components/interactor/interactor.tscn" id="23_nx0tv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y20ih"]
+size = Vector2(18, 46)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nx0tv"]
+radius = 27.0185
+
+[node name="player_base" groups=["players"] instance=ExtResource("1_6kfqv")]
+z_index = 1
+collision_layer = 1
+platform_floor_layers = 2
+platform_wall_layers = 2
+script = ExtResource("2_feufw")
+_input_controller_node_path = NodePath("input_controller")
+
+[node name="main_sprite" parent="." index="1"]
+texture = ExtResource("3_lu8in")
+
+[node name="collider" parent="." index="2"]
+position = Vector2(0, 13)
+
+[node name="facer" type="Node2D" parent="." index="3"]
+script = ExtResource("3_pvgrm")
+
+[node name="grounder" type="Node2D" parent="." index="4"]
+script = ExtResource("4_m3h7j")
+_ground_ray_cast_count = 3
+mass_scale = 4.0
+_physics_collider_node_path = NodePath("../collider")
+
+[node name="health_manager" parent="." index="5" instance=ExtResource("12_y20ih")]
+collision_layer = 1
+collision_mask = 16
+max_health = 1.0
+
+[node name="hurt_box" parent="health_manager" index="0"]
+position = Vector2(0, 14)
+shape = SubResource("RectangleShape2D_y20ih")
+
+[node name="input_controller" type="Node2D" parent="." index="6"]
+script = ExtResource("5_lcam0")
+coyote_time = 0.05
+_facer_node_path = NodePath("../facer")
+_grounder_node_path = NodePath("../grounder")
+_mover_node_path = NodePath("../mover")
+_interactor_node_path = NodePath("../interactor")
+_jumper_node_path = NodePath("../jumper")
+_weapon_node_path = NodePath("../weapon_wielder")
+
+[node name="jumper" type="Node2D" parent="." index="7"]
+script = ExtResource("6_24nif")
+jump_apex_height = 150.0
+_grounder_node_path = NodePath("../grounder")
+jump_audio = ExtResource("9_pnoeb")
+land_audio = ExtResource("10_lu8in")
+
+[node name="mover" type="Node2D" parent="." index="8"]
+script = ExtResource("18_nx0tv")
+movement_speed = 350.0
+footstep_audio = ExtResource("12_lu8in")
+_grounder_node_path = NodePath("../grounder")
+metadata/_custom_type_script = "uid://bqt5065uevmbi"
+
+[node name="weapon_wielder" type="Node2D" parent="." index="9"]
+script = ExtResource("8_h6qno")
+attack_scene = ExtResource("14_lu8in")
+collision_layer = 8
+collision_mask = 20
+
+[node name="interactor" parent="." index="10" instance=ExtResource("23_nx0tv")]
+position = Vector2(0, 11)
+
+[node name="collision" parent="interactor/interact_area" index="0"]
+shape = SubResource("CircleShape2D_nx0tv")
+
+[editable path="health_manager"]
+[editable path="interactor"]

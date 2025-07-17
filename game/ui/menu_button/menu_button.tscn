@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://hhh5ydqhefgu"]
+
+[ext_resource type="Script" uid="uid://c3i30ntd1kjyl" path="res://game/ui/menu_button/menu_button.gd" id="1_s3xay"]
+[ext_resource type="AudioStream" uid="uid://pdiatetw0s04" path="res://game/ui/click.ogg" id="2_4xwvk"]
+
+[node name="menu_button" type="Button"]
+script = ExtResource("1_s3xay")
+click_sound = ExtResource("2_4xwvk")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

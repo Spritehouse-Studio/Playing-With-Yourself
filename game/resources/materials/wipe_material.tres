@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://xucm0yce2af1"]
+
+[ext_resource type="Shader" uid="uid://b6g7e2j6nl667" path="res://game/resources/shaders/wipe.gdshader" id="1_nm54j"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_nm54j")
+shader_parameter/amount = 1.0
+shader_parameter/flow_speed = 1.0

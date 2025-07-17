@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://bw5tjfftu4d7u"]
+
+[ext_resource type="PackedScene" uid="uid://dmt56yh680gsa" path="res://game/gameplay/combat/attack_base.tscn" id="1_ssvrq"]
+[ext_resource type="Material" uid="uid://xucm0yce2af1" path="res://game/resources/materials/wipe_material.tres" id="3_hutsv"]
+[ext_resource type="Script" uid="uid://bc4t35w7sv4hc" path="res://game/gameplay/hazards/lava.gd" id="3_tn5xl"]
+[ext_resource type="Texture2D" uid="uid://6ngl7lyrbc4s" path="res://game/gameplay/hazards/lava.png" id="4_hutsv"]
+
+[sub_resource type="Animation" id="Animation_b66mt"]
+resource_name = "attack"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("offset/sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(0, 0, 32, 512), Rect2(0, -512, 32, 512)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0uq24"]
+_data = {
+&"attack": SubResource("Animation_b66mt")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tn5xl"]
+resource_local_to_scene = true
+size = Vector2(32, 512)
+
+[node name="lava" instance=ExtResource("1_ssvrq")]
+collision_layer = 16
+script = ExtResource("3_tn5xl")
+
+[node name="animator" parent="." index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_0uq24")
+}
+
+[node name="sprite" parent="offset" index="0"]
+z_index = -1
+texture_repeat = 2
+material = ExtResource("3_hutsv")
+texture = ExtResource("4_hutsv")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 512)
+
+[node name="collision" type="CollisionShape2D" parent="." index="2"]
+shape = SubResource("RectangleShape2D_tn5xl")
+
+[node name="left_ray" type="RayCast2D" parent="." index="3"]
+position = Vector2(-16, -256)
+target_position = Vector2(0, 512)
+collision_mask = 2
+
+[node name="right_ray" type="RayCast2D" parent="." index="4"]
+position = Vector2(16, -256)
+target_position = Vector2(0, 512)
+collision_mask = 2

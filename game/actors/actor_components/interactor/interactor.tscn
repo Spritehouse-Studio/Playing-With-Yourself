@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxj8b8vg7eenn"]
+
+[ext_resource type="Script" uid="uid://bcmndg5j0gf2o" path="res://game/actors/actor_components/interactor/interactor.gd" id="1_o2dwa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o2dwa"]
+radius = 32.0
+
+[node name="interactor" type="Node2D"]
+script = ExtResource("1_o2dwa")
+metadata/_custom_type_script = "uid://c6a4u7pdbqkb0"
+
+[node name="interact_area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="collision" type="CollisionShape2D" parent="interact_area"]
+shape = SubResource("CircleShape2D_o2dwa")

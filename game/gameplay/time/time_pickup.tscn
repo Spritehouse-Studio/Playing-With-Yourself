@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://op0r8bcamiok"]
+
+[ext_resource type="Script" uid="uid://byri7lo41dnws" path="res://game/gameplay/time/time_pickup.gd" id="1_eotmw"]
+[ext_resource type="Texture2D" uid="uid://dhlpcvypxf8ct" path="res://game/gameplay/time/clock_base.png" id="2_1jt42"]
+[ext_resource type="Texture2D" uid="uid://cc6mcykhly5i3" path="res://game/white_square.png" id="3_kjhsw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1jt42"]
+radius = 32.0
+
+[node name="time_pickup" type="Node2D"]
+script = ExtResource("1_eotmw")
+
+[node name="pickup_area" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 0
+
+[node name="base_sprite" type="Sprite2D" parent="pickup_area"]
+texture = ExtResource("2_1jt42")
+
+[node name="collision" type="CollisionShape2D" parent="pickup_area"]
+shape = SubResource("CircleShape2D_1jt42")
+
+[node name="hands_offset" type="Node2D" parent="pickup_area"]
+rotation = 3.14159
+
+[node name="second_hand" type="Sprite2D" parent="pickup_area/hands_offset"]
+modulate = Color(0.101961, 0.101961, 0.101961, 1)
+scale = Vector2(2, 12)
+texture = ExtResource("3_kjhsw")
+centered = false
+offset = Vector2(-1, 0)
+
+[node name="minute_hand" type="Sprite2D" parent="pickup_area/hands_offset"]
+modulate = Color(0.101961, 0.101961, 0.101961, 1)
+scale = Vector2(2, 8)
+texture = ExtResource("3_kjhsw")
+centered = false
+offset = Vector2(-1, 0)
+
+[connection signal="body_entered" from="pickup_area" to="." method="_on_pickup_area_body_entered"]

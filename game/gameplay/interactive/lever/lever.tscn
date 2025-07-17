@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://bey3vyc5h8uns"]
+
+[ext_resource type="PackedScene" uid="uid://d2yayc80j7v87" path="res://game/gameplay/interactive/interactable.tscn" id="1_fcmkk"]
+[ext_resource type="Texture2D" uid="uid://dd6mc5mlu74v7" path="res://game/gameplay/interactive/lever/assets/visual/handle.png" id="2_3ieqg"]
+[ext_resource type="Texture2D" uid="uid://dj5t5kjmpp30v" path="res://game/gameplay/interactive/lever/assets/visual/base.png" id="2_3o51a"]
+[ext_resource type="Script" uid="uid://bpixqg6w7xqv2" path="res://game/gameplay/interactive/lever/lever.gd" id="2_cnfjh"]
+
+[sub_resource type="Animation" id="Animation_3o51a"]
+resource_name = "pull"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("handle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0.698132, -0.261799]
+}
+
+[sub_resource type="Animation" id="Animation_3ieqg"]
+resource_name = "release"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("handle:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [-0.261799, 0.698132]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ieqg"]
+_data = {
+&"pull": SubResource("Animation_3o51a"),
+&"release": SubResource("Animation_3ieqg")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ieqg"]
+radius = 64.0
+
+[node name="lever" instance=ExtResource("1_fcmkk")]
+script = ExtResource("2_cnfjh")
+
+[node name="handle" type="Sprite2D" parent="." index="0"]
+position = Vector2(0, -1)
+rotation = -0.261799
+texture = ExtResource("2_3ieqg")
+offset = Vector2(0, -17.665)
+
+[node name="animator" parent="." index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_3ieqg")
+}
+
+[node name="sprite" parent="." index="2"]
+texture = ExtResource("2_3o51a")
+
+[node name="collision" parent="." index="3"]
+shape = SubResource("CircleShape2D_3ieqg")
+
+[node name="offset" type="Marker2D" parent="." index="4"]
+position = Vector2(9, -28)

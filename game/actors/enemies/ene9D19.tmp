@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://x0k70uqxeyw"]
+
+[ext_resource type="PackedScene" uid="uid://pogl1he7tcpw" path="res://game/actors/actor_base.tscn" id="1_0prjm"]
+[ext_resource type="PackedScene" uid="uid://b3shxk2imtdsb" path="res://game/actors/actor_components/health/health_manager.tscn" id="2_kxsn3"]
+[ext_resource type="Texture2D" uid="uid://cq8hxjdoggq7x" path="res://game/actors/players/assets/visual/placeholder.png" id="2_xvc11"]
+[ext_resource type="Script" path="res://game/actors/actor_components/recoiler.gd" id="4_jkr51"]
+[ext_resource type="Script" path="res://game/actors/actor_components/grounder.gd" id="5_jlmka"]
+[ext_resource type="Script" path="res://game/actors/actor_components/flasher.gd" id="5_qgoq5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwla3"]
+size = Vector2(64, 168)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j6fgu"]
+size = Vector2(90, 206)
+
+[node name="enemy_base" instance=ExtResource("1_0prjm")]
+collision_layer = 4
+
+[node name="main_sprite" parent="." index="1"]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("2_xvc11")
+
+[node name="colliider" parent="." index="2"]
+position = Vector2(0, 44)
+shape = SubResource("RectangleShape2D_dwla3")
+
+[node name="health_manager" parent="." index="3" instance=ExtResource("2_kxsn3")]
+max_health = 15.0
+_flasher_node_path = NodePath("../flasher")
+_recoiler_node_path = NodePath("../recoiler")
+
+[node name="hurt_box" parent="health_manager" index="0"]
+position = Vector2(-5, 25)
+shape = SubResource("RectangleShape2D_j6fgu")
+
+[node name="recoiler" type="Node" parent="." index="4"]
+script = ExtResource("4_jkr51")
+
+[node name="flasher" type="Node" parent="." index="5"]
+script = ExtResource("5_qgoq5")
+
+[node name="grounder" type="Node" parent="." index="6"]
+script = ExtResource("5_jlmka")
+_physics_collider_node_path = NodePath("../colliider")
+
+[editable path="health_manager"]

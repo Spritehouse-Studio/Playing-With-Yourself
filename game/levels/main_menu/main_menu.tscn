@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0dmuil7inkid"]
+
+[ext_resource type="Script" uid="uid://cyquscbdss46d" path="res://game/levels/main_menu/main_menu.gd" id="1_1jaio"]
+[ext_resource type="PackedScene" uid="uid://hhh5ydqhefgu" path="res://game/ui/menu_button/menu_button.tscn" id="2_u85ko"]
+[ext_resource type="PackedScene" uid="uid://bfku8uh4s7uwq" path="res://game/ui/stackable/settings/settings_ui.tscn" id="3_u85ko"]
+[ext_resource type="PackedScene" uid="uid://djlyp5j0vdauj" path="res://game/ui/quit_warning/quit_warning.tscn" id="4_1cn4j"]
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_1jaio")
+
+[node name="margin_container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="menu_buttons" type="VBoxContainer" parent="margin_container"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="start_button" parent="margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
+layout_mode = 2
+text = "Start"
+
+[node name="settings_button" parent="margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
+layout_mode = 2
+text = "Settings"
+
+[node name="exit_button" parent="margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
+layout_mode = 2
+text = "Exit"
+
+[node name="settings_ui" parent="." instance=ExtResource("3_u85ko")]
+visible = false
+layout_mode = 1
+
+[node name="exit_warning" parent="." instance=ExtResource("4_1cn4j")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[connection signal="pressed" from="margin_container/menu_buttons/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="margin_container/menu_buttons/settings_button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="margin_container/menu_buttons/exit_button" to="." method="_on_exit_button_pressed"]
+[connection signal="hidden" from="settings_ui" to="." method="_on_settings_ui_hidden"]
+[connection signal="quit_canceled" from="exit_warning" to="." method="_on_exit_warning_quit_canceled"]
+[connection signal="quit_confirmed" from="exit_warning" to="." method="_on_exit_warning_quit_confirmed"]

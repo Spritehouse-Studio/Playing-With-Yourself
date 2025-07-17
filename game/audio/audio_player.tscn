@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7qxhl4abh6mj"]
+
+[ext_resource type="Script" uid="uid://dobvq3u726jfi" path="res://game/actors/actor_components/free_on_audio_finish.gd" id="1_e5e2n"]
+
+[node name="audio_player" type="AudioStreamPlayer2D"]
+
+[node name="free_on_audio_finish" type="Node2D" parent="."]
+script = ExtResource("1_e5e2n")
+_audio_player_node_path = NodePath("..")
+metadata/_custom_type_script = "uid://dobvq3u726jfi"

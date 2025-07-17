@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://daa7bv3d5xd68"]
+
+[ext_resource type="Script" uid="uid://nsvphkjw6m3i" path="res://game/ui/stackable/settings/input_bindings_panel.gd" id="1_6mh6w"]
+[ext_resource type="LabelSettings" uid="uid://cvqg7onn3fwwc" path="res://game/ui/title_label_settings.tres" id="2_jmvsw"]
+[ext_resource type="PackedScene" uid="uid://cuf1ajd1s4fb" path="res://game/ui/stackable/settings/input_rebinder.tscn" id="2_nio1i"]
+[ext_resource type="PackedScene" uid="uid://hhh5ydqhefgu" path="res://game/ui/menu_button/menu_button.tscn" id="3_nio1i"]
+
+[node name="input_bindings_panel" type="Control"]
+layout_mode = 3
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_right = -240.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_6mh6w")
+input_rebinder_prefab = ExtResource("2_nio1i")
+
+[node name="panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 480.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin_container" type="MarginContainer" parent="panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="rebinders_container" type="VBoxContainer" parent="panel/margin_container"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="title" type="Label" parent="panel/margin_container/rebinders_container"]
+layout_mode = 2
+text = "Input Bindings"
+label_settings = ExtResource("2_jmvsw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="labels" type="HBoxContainer" parent="panel/margin_container/rebinders_container"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="action_label" type="Label" parent="panel/margin_container/rebinders_container/labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Action"
+vertical_alignment = 1
+
+[node name="key_mouse_binding_label" type="Label" parent="panel/margin_container/rebinders_container/labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Key/Mouse"
+vertical_alignment = 1
+
+[node name="joypad_binding" type="Label" parent="panel/margin_container/rebinders_container/labels"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Gamepad"
+vertical_alignment = 1
+
+[node name="back_button" parent="panel/margin_container/rebinders_container" instance=ExtResource("3_nio1i")]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="panel/margin_container/rebinders_container/back_button" to="." method="_on_back_button_pressed"]

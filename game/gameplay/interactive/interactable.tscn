@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2yayc80j7v87"]
+
+[ext_resource type="Script" uid="uid://bprhyuo5desnr" path="res://game/gameplay/interactive/interactable.gd" id="1_noh3k"]
+[ext_resource type="Texture2D" uid="uid://cgo0lrrx1ukan" path="res://icon.png" id="2_noh3k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_noh3k"]
+size = Vector2(64, 6)
+
+[node name="interactable" type="Area2D"]
+collision_layer = 32
+collision_mask = 65
+script = ExtResource("1_noh3k")
+
+[node name="animator" type="AnimationPlayer" parent="."]
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_noh3k")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_noh3k")

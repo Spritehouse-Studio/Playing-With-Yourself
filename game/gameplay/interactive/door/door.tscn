@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://sb1et3qm753e"]
+
+[ext_resource type="Texture2D" uid="uid://djxqbvj87nvk5" path="res://game/gameplay/interactive/door/assets/visual/closed.png" id="1_gvfgy"]
+[ext_resource type="Script" uid="uid://bjxy2wwfe518q" path="res://game/gameplay/interactive/door/door.gd" id="1_krt8x"]
+[ext_resource type="Texture2D" uid="uid://b3075204w51yq" path="res://game/gameplay/interactive/door/assets/visual/open.png" id="2_m8o76"]
+[ext_resource type="AudioStream" uid="uid://dmbxiwfxokuou" path="res://game/gameplay/interactive/door/assets/audio/door_open.ogg" id="2_p2ku5"]
+[ext_resource type="AudioStream" uid="uid://cir1bta75fom3" path="res://game/gameplay/interactive/door/assets/audio/door_close.ogg" id="3_jrbk6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krt8x"]
+size = Vector2(16, 128)
+
+[node name="door" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_krt8x")
+open_sound = ExtResource("2_p2ku5")
+close_sound = ExtResource("3_jrbk6")
+
+[node name="open_sprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(41, 0)
+texture = ExtResource("2_m8o76")
+
+[node name="closed_sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_gvfgy")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_krt8x")

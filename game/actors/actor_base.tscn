@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://pogl1he7tcpw"]
+
+[ext_resource type="Shader" uid="uid://ck6c72yi15g8r" path="res://game/resources/shaders/flash.gdshader" id="1_gbbhl"]
+[ext_resource type="Script" uid="uid://chmu6esrlbmah" path="res://game/actors/actor_base.gd" id="2_ei4t0"]
+[ext_resource type="AnimationLibrary" uid="uid://cso3anqs8wygb" path="res://game/resources/animations/player.tres" id="3_m38jx"]
+[ext_resource type="Texture2D" uid="uid://tx6iq2uuqlt0" path="res://game/actors/players/assets/visual/slash0.png" id="4_m38jx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fa3ug"]
+shader = ExtResource("1_gbbhl")
+shader_parameter/color_a = Color(1, 1, 1, 1)
+shader_parameter/color_b = Color(1, 1, 1, 1)
+shader_parameter/colors_affect_alpha = false
+shader_parameter/flash_amount = 0.0
+shader_parameter/flash_speed = 1.0
+shader_parameter/transparency = 1.0
+shader_parameter/intensity = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6i0yx"]
+size = Vector2(22, 47.5)
+
+[node name="actor_base" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_fa3ug")
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_ei4t0")
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": ExtResource("3_m38jx")
+}
+
+[node name="main_sprite" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("4_m38jx")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18.75)
+shape = SubResource("RectangleShape2D_6i0yx")

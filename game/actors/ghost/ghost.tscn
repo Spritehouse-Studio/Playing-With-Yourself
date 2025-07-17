@@ -1,0 +1,71 @@
+[gd_scene load_steps=15 format=3 uid="uid://t7ypauv6ao1y"]
+
+[ext_resource type="PackedScene" uid="uid://pogl1he7tcpw" path="res://game/actors/actor_base.tscn" id="1_21ek4"]
+[ext_resource type="Script" uid="uid://b3n4wahcptros" path="res://game/actors/ghost/ghost.gd" id="2_toso6"]
+[ext_resource type="Script" uid="uid://cs0jyiac5mouy" path="res://game/actors/actor_components/facer.gd" id="3_yyhlv"]
+[ext_resource type="Script" uid="uid://cpuyf5qvw5gjg" path="res://game/actors/actor_components/grounder/grounder.gd" id="4_2jces"]
+[ext_resource type="Script" uid="uid://3ujews4wnd3k" path="res://game/actors/actor_components/jumper.gd" id="4_32y7r"]
+[ext_resource type="Script" uid="uid://bqt5065uevmbi" path="res://game/actors/actor_components/mover/ground_mover.gd" id="5_2jces"]
+[ext_resource type="PackedScene" uid="uid://b3shxk2imtdsb" path="res://game/actors/actor_components/health/health_manager.tscn" id="5_rscux"]
+[ext_resource type="PackedScene" uid="uid://bxj8b8vg7eenn" path="res://game/actors/actor_components/interactor/interactor.tscn" id="6_13yc6"]
+[ext_resource type="AudioStream" uid="uid://8emhlcmqmlmr" path="res://game/actors/players/assets/audio/jump.ogg" id="7_n8x5o"]
+[ext_resource type="AudioStream" uid="uid://dwgyr1o7qb1b2" path="res://game/actors/players/assets/audio/land.ogg" id="8_aygeg"]
+[ext_resource type="Script" uid="uid://yfxg5mr3t8nv" path="res://game/actors/actor_components/combat/weapon_wielder.gd" id="8_rscux"]
+[ext_resource type="PackedScene" uid="uid://cekes40tgg773" path="res://game/gameplay/combat/slash/slash.tscn" id="9_rscux"]
+[ext_resource type="Resource" uid="uid://4nv1exl7dv3t" path="res://game/resources/audio/footsteps.tres" id="10_aygeg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rscux"]
+radius = 27.0185
+
+[node name="ghost" instance=ExtResource("1_21ek4")]
+collision_layer = 64
+script = ExtResource("2_toso6")
+
+[node name="main_sprite" parent="." index="1"]
+modulate = Color(1, 1, 1, 0.25098)
+use_parent_material = false
+position = Vector2(1, 0)
+
+[node name="collider" parent="." index="2"]
+position = Vector2(0, 13)
+
+[node name="facer" type="Node2D" parent="." index="3"]
+script = ExtResource("3_yyhlv")
+
+[node name="grounder" type="Node2D" parent="." index="4"]
+script = ExtResource("4_2jces")
+_ground_ray_cast_count = 3
+mass_scale = 4.0
+_physics_collider_node_path = NodePath("../collider")
+
+[node name="health_manager" parent="." index="5" instance=ExtResource("5_rscux")]
+collision_layer = 64
+collision_mask = 0
+
+[node name="jumper" type="Node2D" parent="." index="6"]
+script = ExtResource("4_32y7r")
+jump_apex_height = 150.0
+_grounder_node_path = NodePath("../grounder")
+jump_audio = ExtResource("7_n8x5o")
+land_audio = ExtResource("8_aygeg")
+
+[node name="mover" type="Node2D" parent="." index="7"]
+script = ExtResource("5_2jces")
+movement_speed = 350.0
+footstep_audio = ExtResource("10_aygeg")
+_grounder_node_path = NodePath("../grounder")
+metadata/_custom_type_script = "uid://bqt5065uevmbi"
+
+[node name="weapon_wielder" type="Node2D" parent="." index="8"]
+script = ExtResource("8_rscux")
+attack_scene = ExtResource("9_rscux")
+collision_layer = 8
+collision_mask = 20
+
+[node name="interactor" parent="." index="9" instance=ExtResource("6_13yc6")]
+position = Vector2(0, 11)
+
+[node name="collision" parent="interactor/interact_area" index="0"]
+shape = SubResource("CircleShape2D_rscux")
+
+[editable path="interactor"]

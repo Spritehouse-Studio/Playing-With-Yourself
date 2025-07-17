@@ -1,0 +1,65 @@
+[gd_scene load_steps=12 format=3 uid="uid://bx46gngy5shiy"]
+
+[ext_resource type="PackedScene" uid="uid://pogl1he7tcpw" path="res://game/actors/actor_base.tscn" id="1_6kfqv"]
+[ext_resource type="Texture2D" uid="uid://cq8hxjdoggq7x" path="res://game/actors/players/assets/visual/placeholder.png" id="2_hlhl2"]
+[ext_resource type="Script" path="res://game/actors/actor_components/facer.gd" id="3_pvgrm"]
+[ext_resource type="PackedScene" uid="uid://sixraabgubxe" path="res://game/actors/actor_components/grounder/grounder.tscn" id="4_ng1ir"]
+[ext_resource type="PackedScene" uid="uid://bejg66y4v3ddu" path="res://game/actors/actor_components/input_controller/input_controller.tscn" id="5_v2imn"]
+[ext_resource type="Script" path="res://game/actors/actor_components/jumper.gd" id="6_24nif"]
+[ext_resource type="Script" path="res://game/actors/actor_components/mover/ground_mover.gd" id="7_rrfml"]
+[ext_resource type="Script" path="res://game/actors/actor_components/combat/weapon_wielder.gd" id="8_h6qno"]
+[ext_resource type="PackedScene" uid="uid://ckmbwwdtcu7me" path="res://game/actors/attacks/slashes/slash.tscn" id="9_jv3jp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gyi64"]
+size = Vector2(48, 176)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ib38w"]
+size = Vector2(20, 24)
+
+[node name="player_base" instance=ExtResource("1_6kfqv")]
+collision_layer = 1
+
+[node name="main_sprite" parent="." index="1"]
+texture = ExtResource("2_hlhl2")
+
+[node name="colliider" parent="." index="2"]
+position = Vector2(-3, 40)
+shape = SubResource("RectangleShape2D_gyi64")
+
+[node name="head_collision" type="CollisionShape2D" parent="." index="3"]
+position = Vector2(4, -60)
+shape = SubResource("RectangleShape2D_ib38w")
+
+[node name="facer" type="Node" parent="." index="4"]
+script = ExtResource("3_pvgrm")
+
+[node name="grounder" parent="." index="5" instance=ExtResource("4_ng1ir")]
+_ground_ray_cast_count = 3
+_ground_ray_cast_length = 4.0
+mass_scale = 4.0
+_physics_collider_node_path = NodePath("../colliider")
+coyote_time = 0.25
+_ground_ray_cast_collision_mask = null
+_root_node_path = null
+
+[node name="input_controller" parent="." index="6" instance=ExtResource("5_v2imn")]
+_facer_node_path = NodePath("../facer")
+_grounder_node_path = NodePath("../grounder")
+_jumper_node_path = NodePath("../jumper")
+_mover_node_path = NodePath("../mover")
+_weapon_node_path = NodePath("../weapon_wielder")
+
+[node name="jumper" type="Node" parent="." index="7"]
+script = ExtResource("6_24nif")
+jump_apex_height = 600.0
+_grounder_node_path = NodePath("../grounder")
+
+[node name="mover" type="Node" parent="." index="8"]
+script = ExtResource("7_rrfml")
+movement_speed = 500.0
+
+[node name="weapon_wielder" type="Node" parent="." index="9"]
+script = ExtResource("8_h6qno")
+attack_scene = ExtResource("9_jv3jp")
+collision_layer = 8
+collision_mask = 2

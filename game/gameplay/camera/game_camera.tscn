@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpuvt3yg5eiag"]
+
+[ext_resource type="Script" uid="uid://bwp6562dsmk4l" path="res://game/gameplay/camera/game_camera.gd" id="1_8rolk"]
+[ext_resource type="Script" uid="uid://dcmequil4w2l1" path="res://game/actors/actor_components/shaker.gd" id="1_rjk80"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6ixx"]
+size = Vector2(256, 192)
+
+[node name="game_camera" type="Camera2D"]
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource("1_8rolk")
+
+[node name="shaker" type="Node" parent="."]
+script = ExtResource("1_rjk80")
+
+[node name="dead_zone" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="dead_zone"]
+shape = SubResource("RectangleShape2D_q6ixx")

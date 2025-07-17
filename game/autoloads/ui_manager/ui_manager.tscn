@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct8q6t8lrtky7"]
+
+[ext_resource type="Script" uid="uid://c07lraedqve8o" path="res://game/autoloads/ui_manager/ui_manager.gd" id="1_7xo1h"]
+[ext_resource type="PackedScene" uid="uid://b2dacqs05bolx" path="res://game/ui/fader/fader.tscn" id="2_oo5qq"]
+[ext_resource type="PackedScene" uid="uid://4dklr4sid8ud" path="res://game/ui/pause_menu/pause_menu.tscn" id="3_c222f"]
+[ext_resource type="PackedScene" uid="uid://2insylhj1rx5" path="res://game/ui/life/life_timer_ui.tscn" id="4_d7yjm"]
+
+[node name="ui_manager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7xo1h")
+ui_scenes = Array[PackedScene]([ExtResource("2_oo5qq"), ExtResource("3_c222f"), ExtResource("4_d7yjm")])
+
+[node name="ui_layer" type="CanvasLayer" parent="."]

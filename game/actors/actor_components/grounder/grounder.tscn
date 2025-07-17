@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://sixraabgubxe"]
+
+[ext_resource type="Script" uid="uid://cpuyf5qvw5gjg" path="res://game/actors/actor_components/grounder/grounder.gd" id="1_p6shm"]
+
+[node name="grounder" type="Node"]
+script = ExtResource("1_p6shm")
+
+[node name="coyote_timer" type="Timer" parent="."]
+one_shot = true

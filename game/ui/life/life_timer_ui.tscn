@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://2insylhj1rx5"]
+
+[ext_resource type="Script" uid="uid://dttg0o0n7ykoj" path="res://game/ui/life/life_timer_ui.gd" id="1_tq3gk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tq3gk"]
+font_color = Color(0.101961, 0.101961, 0.101961, 1)
+
+[node name="life_timer_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_tq3gk")
+
+[node name="margin_container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+
+[node name="life_progress" type="ProgressBar" parent="margin_container"]
+layout_mode = 2
+size_flags_vertical = 1
+value = 50.0
+show_percentage = false
+
+[node name="lifetime_label" type="Label" parent="margin_container/life_progress"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0:00"
+label_settings = SubResource("LabelSettings_tq3gk")
+horizontal_alignment = 1
+vertical_alignment = 1
