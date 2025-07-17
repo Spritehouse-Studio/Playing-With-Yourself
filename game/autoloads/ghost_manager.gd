@@ -1,41 +1,53 @@
-extends Node
+extends Node2D
 
-var ghost_prefab: PackedScene = preload("res://game/actors/ghost/ghost.tscn")
+var ghost_prefab: PackedScene = preload("uid://t7ypauv6ao1y")
 
-class GhostComponentData:
-	var timeline: Array[float] = []
-	var values: Array[Variant] = []
+class GhostEvent:
+	var frame: int
+	var values: Dictionary[String, Variant]
+	var ghost_position: Vector2
+	var scene: String
 
-class GhostData:
-	var component_data: Dictionary[String, GhostComponentData]
+class GhostEvents:
+	var events: Array[GhostEvent]
 
-var ghost_data: Array[GhostData] = []
+var all_ghost_events: Array[GhostEvents]
+var ghosts: Array[Ghost]
 
-var ghosts: Array[Ghost] = []
+var player_life_frame_index: int
 
-var tracking: bool = false
+func update_frame_index() -> void:
+	player_life_frame_index = Engine.get_frames_drawn()
+
+func reload() -> void:
+	update_frame_index()
+	ghosts.clear()
+	for child in get_children():
+		if child is Ghost:
+			child.queue_free()
+	_create_ghosts()
+	_create_new_ghost_events()
 
 func reset() -> void:
-	ghost_data.clear()
-	ghosts.clear() 
+	all_ghost_events.clear()
 
-func create_ghost_data(player: PlayerBase) -> void:
-	var data := GhostData.new()
-	for child in player.get_children():
-		if child is TrackedComponent:
-			child.ghost_index = len(ghost_data)
-			data.component_data[child.get_script().get_global_name()] = GhostComponentData.new()
-	ghost_data.append(data)
-
-func create_ghosts() -> void:
+func _create_new_ghost_events() -> void:
 	var player: PlayerBase = get_tree().get_first_node_in_group("players")
-	for ghost_index in range(0, len(ghost_data) - 1):
+	if is_instance_valid(player):
+		var ghost_events := GhostEvents.new()
+		all_ghost_events.append(ghost_events)
+
+func _create_ghosts() -> void:
+	if len(all_ghost_events) <= 0:
+		return
+	var player: PlayerBase = get_tree().get_first_node_in_group("players")
+	for ghost_index in range(0, len(all_ghost_events)):
 		var ghost: Ghost = ghost_prefab.instantiate()
 		for child in ghost.get_children():
 			if child is TrackedComponent:
 				child.ghost_index = ghost_index
-		ghosts.append(ghost)
 		if is_instance_valid(player):
 			ghost.global_position = player.global_position
 			ghost.transform.x.x = player.transform.x.x
-			player.get_parent().add_child.call_deferred(ghost)
+		add_child(ghost)
+		ghosts.append(ghost)

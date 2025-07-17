@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyu3nmkobh3b0"]
+[gd_scene load_steps=4 format=3 uid="uid://dyu3nmkobh3b0"]
 
-[ext_resource type="Texture2D" uid="uid://bch44fir7mrn0" path="res://game/gameplay/interactive/save_points/assets/visual/shrine.png" id="2_6twdm"]
-[ext_resource type="Script" uid="uid://cvxyymrfca536" path="res://game/gameplay/interactive/save_points/save_point.gd" id="2_kk7mh"]
-[ext_resource type="PackedScene" uid="uid://bx46gngy5shiy" path="res://game/actors/players/player_base.tscn" id="3_kk7mh"]
+[ext_resource type="Texture2D" uid="uid://bch44fir7mrn0" path="res://game/autoloads/save/save_points/assets/visual/shrine.png" id="2_6twdm"]
+[ext_resource type="Script" uid="uid://cvxyymrfca536" path="res://game/autoloads/save/save_points/save_point.gd" id="2_kk7mh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_noh3k"]
 size = Vector2(64, 6)
@@ -10,7 +9,6 @@ size = Vector2(64, 6)
 [node name="save_point" type="Area2D" groups=["save_points"]]
 collision_layer = 0
 script = ExtResource("2_kk7mh")
-player_prefab = ExtResource("3_kk7mh")
 
 [node name="animator" type="AnimationPlayer" parent="."]
 

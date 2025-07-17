@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bch44fir7mrn0"
-path="res://.godot/imported/shrine.png-6b53cc5fb4a66cd6a16db2c3bc8a83e3.ctex"
+path="res://.godot/imported/shrine.png-05362b1353338b9ca9a5ed3d15c05745.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/gameplay/interactive/save_points/assets/visual/shrine.png"
-dest_files=["res://.godot/imported/shrine.png-6b53cc5fb4a66cd6a16db2c3bc8a83e3.ctex"]
+source_file="res://game/autoloads/save/save_points/assets/visual/shrine.png"
+dest_files=["res://.godot/imported/shrine.png-05362b1353338b9ca9a5ed3d15c05745.ctex"]
 
 [params]
 

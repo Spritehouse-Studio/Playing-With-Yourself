@@ -1,27 +1,39 @@
 class_name TrackedComponent extends ActorComponentBase
 
 var ghost_index: int
+var current_event_index: int
 
-var current_time: float = 0
+var component_name: String:
+	get:
+		return get_script().get_global_name()
 
-var current_timeline_index: int = 0
+var events: Array[GhostManager.GhostEvent]:
+	get:
+		return GhostManager.all_ghost_events[ghost_index].events.filter(func(ev: GhostManager.GhostEvent): 
+			return ev.values.has(component_name))
+
+var num_events: int:
+	get:
+		return events.size()
 
 func _process(delta: float) -> void:
-	current_time += delta	
 	if _actor_root is Ghost:
-		var component_data = GhostManager.ghost_data[ghost_index].component_data[get_script().get_global_name()]
-		var timeline_size: int = len(component_data.timeline)
-		if timeline_size <= 0 or current_timeline_index >= timeline_size:
+		if num_events <= 0 or current_event_index >= num_events:
 			return
-		var time: float = component_data.timeline[current_timeline_index]
-		if current_time >= time:
-			load_event(component_data.values[current_timeline_index])
-			current_timeline_index += 1
+		var event: GhostManager.GhostEvent = events[current_event_index]
+		if Engine.get_frames_drawn() - GhostManager.player_life_frame_index >= event.frame:
+			_actor_root.global_position = event.ghost_position
+			load_event(event.values[component_name])
+			current_event_index += 1
 
 func save_event(value: Variant) -> void:
 	if _actor_root is PlayerBase:
-		GhostManager.ghost_data[ghost_index].component_data[get_script().get_global_name()].timeline.append(current_time)
-		GhostManager.ghost_data[ghost_index].component_data[get_script().get_global_name()].values.append(value)
+		var event := GhostManager.GhostEvent.new()
+		event.frame = Engine.get_frames_drawn() - GhostManager.player_life_frame_index
+		event.values[get_script().get_global_name()] = value
+		event.ghost_position = _actor_root.global_position
+		event.scene = get_tree().current_scene.name
+		GhostManager.all_ghost_events[GhostManager.ghosts.size()].events.append(event)
 
 func load_event(value: Variant) -> void:
 	pass

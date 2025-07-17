@@ -10,7 +10,6 @@ extends Control
 ## UIs that cannot be closed by pressing "ui_cancel"
 var non_closeable_uis: Array[GDScript] = [
 	Fader,
-	LifeTimerUI
 ]
 
 ## A list of all instantiated UIs

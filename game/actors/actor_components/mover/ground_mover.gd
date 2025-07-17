@@ -47,9 +47,10 @@ func move(direction: float) -> void:
 
 ## Move horizontally to a particular point.
 func move_to(target_x: float) -> void:
-	move(_actor_root.global_position.x - target_x)
-	while current_direction_x < 0 and _actor_root.global_position.x > target_x or \
-		current_direction_x > 0 and _actor_root.global_position.x < target_x:
+	var direction: float =  target_x - _actor_root.global_position.x
+	move(direction)
+	while direction < 0 and _actor_root.global_position.x > target_x or \
+		direction > 0 and _actor_root.global_position.x < target_x:
 			await get_tree().process_frame
 	reached_destination.emit(_actor_root.global_position.x)
 

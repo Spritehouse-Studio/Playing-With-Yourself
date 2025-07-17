@@ -4,4 +4,4 @@ class_name SaveData extends Resource
 var highest_score: int = 0
 var lowest_ghosts: int = INF
 var fastest_time: float = INF
-var best_ghost_data: GhostManager.GhostData
+var best_ghost_events: Array[GhostManager.GhostEvents] = []

@@ -1,4 +1,4 @@
-class_name Facer extends TrackedComponent
+class_name Facer extends ActorComponentBase
 ## Component that controls the direction that the attached actor is facing.
 
 #region Godot's built-in methods

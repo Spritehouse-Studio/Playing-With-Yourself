@@ -13,7 +13,6 @@ func _ready() -> void:
 	timeout.connect(_on_life_timer_timeout)
 
 func reset() -> void:
-	GhostManager.tracking = false
 	SessionManager.reload()
 
 func _process(_delta: float) -> void:

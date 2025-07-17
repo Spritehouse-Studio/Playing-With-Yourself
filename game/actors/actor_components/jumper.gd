@@ -35,7 +35,7 @@ var is_falling: bool:
 func _process(delta: float) -> void:
 	_update_airborne_animation()
 	_update_landing()
-	super._process(delta)
+	#super._process(delta)
 #endregion
 
 #region Public methods

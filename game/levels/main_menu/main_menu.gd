@@ -11,7 +11,6 @@ class_name MainMenu extends Control
 @onready var settings_ui: Control = $settings_ui
 
 func _init() -> void:
-	GhostManager.reset()
 	SaveManager.load_game(0)
 
 func _ready() -> void:

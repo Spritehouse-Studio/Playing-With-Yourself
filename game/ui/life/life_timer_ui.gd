@@ -1,4 +1,4 @@
-class_name LifeTimerUI extends BaseUI
+class_name LifeTimerUI extends Control
 
 @onready var life_progress_bar: ProgressBar = $margin_container/life_progress
 @onready var life_time_label: Label = life_progress_bar.get_node_or_null("lifetime_label")

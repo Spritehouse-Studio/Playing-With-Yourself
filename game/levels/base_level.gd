@@ -13,26 +13,12 @@ class_name BaseLevel extends Node2D
 
 #region Godot's built-in methods
 func _ready() -> void:
-	_open_uis()
 	_setup_camera()
 	_play_music()
 	LifeManager.start_life(30)
 #endregion
 
-#region Public methods
-## Load the save point in this scene
-func load_save_point(save_point_data: SavePointData) -> void:
-	var save_points: Array[Node] = get_tree().get_nodes_in_group("save_points")
-	for save_point in save_points:
-		if save_point is SavePoint and save_point.equals(save_point_data.save_position):
-			save_point.load_save(save_point_data)
-			return
-#endregion
-
 #region Non-public methods
-func _open_uis() -> void:
-	UIManager.open_ui(LifeTimerUI)
-
 ## Set up the game camera for this specific level.
 func _setup_camera() -> void:
 	if camera == null: 

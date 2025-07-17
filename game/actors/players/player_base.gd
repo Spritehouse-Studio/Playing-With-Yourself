@@ -13,8 +13,3 @@ var disable_input: bool:
 		_disable_input = value
 		if is_instance_valid(input_controller):
 			input_controller.disabled = value
-
-func _ready() -> void:
-	GhostManager.create_ghost_data(self)
-	GhostManager.tracking = true
-	GhostManager.create_ghosts()

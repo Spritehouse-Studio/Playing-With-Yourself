@@ -12,6 +12,9 @@ script = ExtResource("1_i3i60")
 shape = SubResource("RectangleShape2D_ril2x")
 
 [node name="target" type="Marker2D" parent="."]
-position = Vector2(32, 0)
+position = Vector2(128, 0)
+
+[node name="player_offset" type="Marker2D" parent="."]
+position = Vector2(0, 10)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
