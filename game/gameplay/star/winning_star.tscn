@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://7r5l3am0lun7"]
+
+[ext_resource type="Script" uid="uid://xtmgaptwfqvu" path="res://game/gameplay/star/star.gd" id="1_fehwn"]
+[ext_resource type="Texture2D" uid="uid://b6a4ji4s5itc3" path="res://game/gameplay/star/star.png" id="1_ux21c"]
+
+[sub_resource type="Animation" id="Animation_gfat8"]
+resource_name = "spin"
+length = 0.25
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yu5l6"]
+_data = {
+&"spin": SubResource("Animation_gfat8")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fehwn"]
+radius = 35.0
+
+[node name="winning_star" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_fehwn")
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yu5l6")
+}
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ux21c")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_fehwn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

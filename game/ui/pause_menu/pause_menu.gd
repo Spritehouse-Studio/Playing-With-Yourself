@@ -1,9 +1,6 @@
 ## The menu that appears when you pause the game
 class_name PauseMenu extends BaseUI
 
-## The scene that loads when quitting from the pause menu
-@export var main_menu_scene: PackedScene
-
 ## Controls the pause menu's animations
 @onready var animator: AnimationPlayer = $animator
 ## The texture that blurs when the pause menu appears
@@ -77,7 +74,7 @@ func _on_settings_ui_hidden():
 
 func _on_quit_warning_quit_confirmed() -> void:
 	close()
-	SceneManager.change_scene(main_menu_scene)
+	SceneManager.go_to_main_menu()
 
 func _on_quit_warning_quit_canceled() -> void:
 	quit_warning.hide()

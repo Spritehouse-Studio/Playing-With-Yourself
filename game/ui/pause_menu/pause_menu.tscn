@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://4dklr4sid8ud"]
+[gd_scene load_steps=10 format=3 uid="uid://4dklr4sid8ud"]
 
 [ext_resource type="PackedScene" uid="uid://hhh5ydqhefgu" path="res://game/ui/menu_button/menu_button.tscn" id="1_hj2f6"]
 [ext_resource type="Shader" uid="uid://1yt6fir81sg8" path="res://game/resources/shaders/blur.gdshader" id="1_ortre"]
 [ext_resource type="Script" uid="uid://berkios37o3mj" path="res://game/ui/pause_menu/pause_menu.gd" id="1_yocbn"]
 [ext_resource type="PackedScene" uid="uid://djlyp5j0vdauj" path="res://game/ui/quit_warning/quit_warning.tscn" id="2_ortre"]
-[ext_resource type="PackedScene" uid="uid://b0dmuil7inkid" path="res://game/levels/main_menu/main_menu.tscn" id="2_rqgau"]
 [ext_resource type="PackedScene" uid="uid://bfku8uh4s7uwq" path="res://game/ui/stackable/settings/settings_ui.tscn" id="3_yocbn"]
 
 [sub_resource type="Animation" id="Animation_yocbn"]
@@ -85,7 +84,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_yocbn")
-main_menu_scene = ExtResource("2_rqgau")
 
 [node name="animator" type="AnimationPlayer" parent="."]
 libraries = {

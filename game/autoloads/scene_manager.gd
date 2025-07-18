@@ -1,6 +1,8 @@
 ## Manages loading and unloading of scenes
 extends Node
 
+var main_menu_scene: PackedScene = preload("uid://b0dmuil7inkid")
+
 ## All loaded scenes, including ones not currently attached to the scene tree
 var loaded_scenes: Array[BaseLevel]
 
@@ -29,3 +31,6 @@ func change_scene_transition(scene: PackedScene, transition_name: String, enter_
 		transitions[0].enter_from(enter_scale)
 	fader.close()
 	await fader.faded_out
+
+func go_to_main_menu() -> void:
+	change_scene(main_menu_scene)

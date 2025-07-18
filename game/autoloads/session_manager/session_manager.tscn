@@ -1,6 +1,181 @@
-[gd_scene load_steps=2 format=3 uid="uid://2cpxfaros0cw"]
+[gd_scene load_steps=12 format=3 uid="uid://2cpxfaros0cw"]
 
 [ext_resource type="Script" uid="uid://bv8xuhfeadexb" path="res://game/autoloads/session_manager/session_manager.gd" id="1_5x4pn"]
+[ext_resource type="Texture2D" uid="uid://eb8smkylaxhj" path="res://game/ui/circle.png" id="2_2sruy"]
+[ext_resource type="Shader" uid="uid://1yt6fir81sg8" path="res://game/resources/shaders/blur.gdshader" id="3_l0g82"]
 
-[node name="session_manager" type="Node"]
+[sub_resource type="Animation" id="Animation_5x4pn"]
+resource_name = "win"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("canvas_layer/win_text:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("canvas_layer/blur:material:shader_parameter/blur_radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 15.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("canvas_layer/win_text/win_particles_left:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("canvas_layer/win_text/win_particles_right:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_2sruy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("canvas_layer/win_text:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("canvas_layer/blur:material:shader_parameter/blur_radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2sruy"]
+_data = {
+&"RESET": SubResource("Animation_2sruy"),
+&"win": SubResource("Animation_5x4pn")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8mvot"]
+shader = ExtResource("3_l0g82")
+shader_parameter/blur_radius = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_l0g82"]
+font_size = 64
+font_color = Color(0.101961, 0.101961, 0.101961, 1)
+outline_size = 8
+outline_color = Color(0.94902, 0.94902, 0.94902, 1)
+
+[sub_resource type="Curve" id="Curve_l0g82"]
+_data = [Vector2(0, 0.501916), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_8mvot"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_h0wqn"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0.00205761, 0.00383151), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.8, 0.0, 0, 0]
+point_count = 2
+
+[node name="session_manager" type="Node2D"]
 script = ExtResource("1_5x4pn")
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2sruy")
+}
+
+[node name="canvas_layer" type="CanvasLayer" parent="."]
+
+[node name="blur" type="TextureRect" parent="canvas_layer"]
+material = SubResource("ShaderMaterial_8mvot")
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="win_text" type="Label" parent="canvas_layer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "VICTORY"
+label_settings = SubResource("LabelSettings_l0g82")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="win_particles_left" type="CPUParticles2D" parent="canvas_layer/win_text"]
+z_index = 100
+position = Vector2(-64, 417)
+amount = 512
+texture = ExtResource("2_2sruy")
+explosiveness = 0.9
+randomness = 0.5
+lifetime_randomness = 1.0
+direction = Vector2(1, -1)
+spread = 90.0
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
+scale_amount_min = 0.1
+scale_amount_max = 0.25
+scale_amount_curve = SubResource("Curve_l0g82")
+color_ramp = SubResource("Gradient_8mvot")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_h0wqn")
+
+[node name="win_particles_right" type="CPUParticles2D" parent="canvas_layer/win_text"]
+z_index = 100
+position = Vector2(1024, 417)
+amount = 512
+texture = ExtResource("2_2sruy")
+explosiveness = 0.9
+randomness = 0.5
+lifetime_randomness = 1.0
+direction = Vector2(-1, -1)
+spread = 90.0
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
+scale_amount_min = 0.1
+scale_amount_max = 0.25
+scale_amount_curve = SubResource("Curve_l0g82")
+color_ramp = SubResource("Gradient_8mvot")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_h0wqn")

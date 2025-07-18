@@ -14,6 +14,7 @@ func _init() -> void:
 	SaveManager.load_game(0)
 
 func _ready() -> void:
+	SessionManager.animator.play("RESET")
 	AudioManager.stop_music()
 	if OS.get_name() == "Web":
 		exit_button.hide()

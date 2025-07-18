@@ -32,8 +32,10 @@ func add_time(time: float) -> void:
 		max_time_changed.emit(max_time)
 	start(new_time)
 
+func reload() -> void:
+	lives_spent += 1
+
 func _on_life_timer_timeout() -> void:
 	await get_tree().create_timer(1).timeout
 	life_over.emit()
-	lives_spent += 1
 	SessionManager.reload()
