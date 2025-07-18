@@ -22,10 +22,18 @@ var player_prefab: PackedScene = preload("uid://bx46gngy5shiy")
 
 ## Walk the player from this door into the scene
 func enter_from(enter_scale: float) -> void:
+	var scene_change_event := GhostManager.GhostEvent.new()
+	scene_change_event.time = GhostManager.current_time
+	scene_change_event.type = "scene_change"
+	scene_change_event.value = SceneManager.current_scene
+	scene_change_event.ghost_position = player_offset.global_position
+	GhostManager.last_ghost_events.append(scene_change_event)
+	
 	var player: PlayerBase = player_prefab.instantiate()
 	player.global_position = player_offset.global_position
 	collision.disabled = true
 	level_root.add_child(player)
+	
 	player.disable_input = true
 	var health: HealthManager = player.get_node("health_manager")
 	if is_instance_valid(health):

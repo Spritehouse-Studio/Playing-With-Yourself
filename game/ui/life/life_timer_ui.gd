@@ -9,6 +9,10 @@ func _ready() -> void:
 	LifeManager.max_time_changed.connect(_on_max_time_changed)
 
 func _process(_delta: float) -> void:
+	if get_tree().paused:
+		hide()
+	else:
+		show()
 	_update_progress()
 
 func _on_time_changed(time: int) -> void:

@@ -59,6 +59,11 @@ func _on_animator_animation_finished(anim_name: String) -> void:
 func _on_resume_button_pressed() -> void:
 	close()
 
+func _on_restart_button_pressed() -> void:
+	close()
+	pause(false)
+	SessionManager.reset()
+
 func _on_settings_button_pressed() -> void:
 	margin_container.hide()
 	settings_ui.show()

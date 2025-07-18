@@ -20,14 +20,14 @@ var closed: bool = true
 func _open() -> void:
 	closed_sprite.hide()
 	open_sprite.show()
-	AudioManager.play_audio(open_sound)
+	AudioManager.play_audio(open_sound, global_position)
 	collision.disabled = true
 	closed = false
 
 func _close() -> void:
 	closed_sprite.show()
 	open_sprite.hide()
-	AudioManager.play_audio(close_sound)
+	AudioManager.play_audio(close_sound, global_position)
 	collision.disabled = false
 	closed = true
 

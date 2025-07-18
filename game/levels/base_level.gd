@@ -15,7 +15,7 @@ class_name BaseLevel extends Node2D
 func _ready() -> void:
 	_setup_camera()
 	_play_music()
-	LifeManager.start_life(30)
+	LifeManager.start_life(15)
 #endregion
 
 #region Non-public methods

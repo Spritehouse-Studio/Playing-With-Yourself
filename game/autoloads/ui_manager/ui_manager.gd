@@ -37,7 +37,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if in_closeable_ui:
 			top_ui.close()
-		elif get_tree().current_scene.name != "main_menu":
+		elif SceneManager.current_scene != "main_menu":
 			var pause_menu: PauseMenu = get_ui(PauseMenu)
 			if pause_menu:
 				if pause_menu.visible:

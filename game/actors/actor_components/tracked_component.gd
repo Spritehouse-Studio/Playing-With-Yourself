@@ -1,6 +1,5 @@
 class_name TrackedComponent extends ActorComponentBase
 
-var ghost_index: int
 var current_event_index: int
 
 var component_name: String:
@@ -9,31 +8,56 @@ var component_name: String:
 
 var events: Array[GhostManager.GhostEvent]:
 	get:
-		return GhostManager.all_ghost_events[ghost_index].events.filter(func(ev: GhostManager.GhostEvent): 
-			return ev.values.has(component_name))
+		return GhostManager.all_ghost_events[_actor_root.ghost_index].events.filter(func(ev: GhostManager.GhostEvent): 
+			return ev.type == component_name)
 
 var num_events: int:
 	get:
 		return events.size()
 
+var current_event: GhostManager.GhostEvent:
+	get:
+		if num_events <= 0 or current_event_index >= num_events:
+			return null
+		return events[current_event_index]
+
+var next_event: GhostManager.GhostEvent:
+	get:
+		var next_event_index: int = current_event_index + 1
+		if num_events <= 0 or next_event_index >= num_events:
+			return null
+		return events[next_event_index]
+
+var finished_playing: bool
+
 func _process(delta: float) -> void:
 	if _actor_root is Ghost:
-		if num_events <= 0 or current_event_index >= num_events:
+		if finished_playing:
 			return
-		var event: GhostManager.GhostEvent = events[current_event_index]
-		if Engine.get_frames_drawn() - GhostManager.player_life_frame_index >= event.frame:
-			_actor_root.global_position = event.ghost_position
-			load_event(event.values[component_name])
-			current_event_index += 1
+		if current_event !=  null:
+			if GhostManager.current_time >= current_event.time:
+				var new_pos: Vector2 = current_event.ghost_position
+				var event_val: Variant = current_event.value
+				if next_event == null or GhostManager.current_time < next_event.time:
+					_actor_root.global_position = new_pos
+					load_event(event_val)
+				if current_event_index < num_events - 1:
+					current_event_index += 1
+				else:
+					finished_playing = true
 
 func save_event(value: Variant) -> void:
 	if _actor_root is PlayerBase:
 		var event := GhostManager.GhostEvent.new()
-		event.frame = Engine.get_frames_drawn() - GhostManager.player_life_frame_index
-		event.values[get_script().get_global_name()] = value
+		event.time = GhostManager.current_time
+		event.type = component_name
+		event.value = value
 		event.ghost_position = _actor_root.global_position
-		event.scene = get_tree().current_scene.name
 		GhostManager.all_ghost_events[GhostManager.ghosts.size()].events.append(event)
 
 func load_event(value: Variant) -> void:
 	pass
+
+func reload() -> void:
+	current_event_index = 0
+	finished_playing = false

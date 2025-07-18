@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://4dklr4sid8ud" path="res://game/ui/pause_menu/pause_menu.tscn" id="3_c222f"]
 
 [node name="ui_manager" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

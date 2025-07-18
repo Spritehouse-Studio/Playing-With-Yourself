@@ -35,7 +35,7 @@ var is_falling: bool:
 func _process(delta: float) -> void:
 	_update_airborne_animation()
 	_update_landing()
-	#super._process(delta)
+	super._process(delta)
 #endregion
 
 #region Public methods
@@ -53,7 +53,7 @@ func jump(height: float = jump_apex_height) -> void:
 	var jump_vector := Vector2(jump_x, jump_y)
 	_actor_root.velocity = jump_vector
 	if jump_audio != null:
-		AudioManager.play_audio(jump_audio)
+		AudioManager.play_audio(jump_audio, global_position)
 	save_event(true)
 
 ## Jump from the actor's starting position to a target position
@@ -71,6 +71,7 @@ func end_jump() -> void:
 	save_event(false)
 
 func load_event(value: Variant) -> void:
+	super.load_event(value)
 	var do_jump = value as bool
 	if do_jump:
 		jump()
@@ -91,7 +92,7 @@ func _update_landing() -> void:
 		if _grounder.is_grounded:
 			if _current_jump_speed > 0:
 				if land_audio != null:
-					AudioManager.play_audio(land_audio)
+					AudioManager.play_audio(land_audio, global_position)
 				landed.emit(_current_jump_speed)
 				_current_jump_speed = 0
 		elif not _actor_root.is_on_floor():

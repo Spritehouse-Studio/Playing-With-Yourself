@@ -10,6 +10,7 @@ class_name AttackBase extends Area2D
 @export var force: float = 0
 ## Whether the attack should be parented to the actor when spawned.
 @export var parent_to_actor: bool = false
+@export var slash_audio: AudioStream
 #endregion
 
 @onready var animator: AnimationPlayer = $animator
@@ -22,5 +23,9 @@ func activate() -> void:
 			animator.play("attack");
 		else:
 			animator.play(animator.current_animation)
+
+func play_audio() -> void:
+	if slash_audio != null:
+		AudioManager.play_audio(slash_audio, global_position, 0.75, 1.25)
 #endregion
 	

@@ -29,7 +29,6 @@ func _save() -> void:
 	var current_scene: PackedScene = load(get_tree().current_scene.scene_file_path)
 	SessionManager.save(current_scene, get_path())
 
-
 func _on_body_entered(body: Node2D) -> void:
 	if body is PlayerBase:
 		_save()

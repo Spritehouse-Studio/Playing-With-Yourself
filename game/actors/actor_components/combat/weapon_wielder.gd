@@ -14,6 +14,7 @@ class_name WeaponWielder extends TrackedComponent
 
 #region Public methods
 func load_event(value: Variant) -> void:
+	super.load_event(value)
 	attack()
 
 ## Attack with the currently-wielded weapon.

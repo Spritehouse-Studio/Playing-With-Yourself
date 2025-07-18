@@ -1,6 +1,7 @@
 extends Node
 
 var first_scene: PackedScene = preload("uid://d3k4bi03gjyyn")
+var reload_audio: AudioStream = preload("uid://b7w54l64tu6cs")
 
 var last_saved_scene: PackedScene
 var last_save_point_path: String
@@ -14,6 +15,7 @@ func reset() -> void:
 		save_point.reload()
 	GhostManager.reset()
 	GhostManager.reload()
+	AudioManager.play_audio(reload_audio, save_point.global_position)
 
 func reload() -> void:
 	await SceneManager.change_scene(last_saved_scene)
@@ -21,6 +23,7 @@ func reload() -> void:
 	if is_instance_valid(save_point):
 		save_point.reload()
 	GhostManager.reload()
+	AudioManager.play_audio(reload_audio, save_point.global_position)
 
 func save(current_scene: PackedScene, save_point_path: String) -> void:
 	last_saved_scene = current_scene

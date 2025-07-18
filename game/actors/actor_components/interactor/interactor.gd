@@ -10,9 +10,10 @@ var can_interact: bool:
 
 func _process(delta: float) -> void:
 	_update_interactable()
-	#super._process(delta)
+	super._process(delta)
 
 func load_event(value: Variant) -> void:
+	super.load_event(value)
 	try_interact()
 
 func try_interact() -> void:

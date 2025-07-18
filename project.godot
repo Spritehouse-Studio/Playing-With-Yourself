@@ -14,10 +14,13 @@ config/name="Playing With Yourself"
 config/version="0.0.0"
 run/main_scene="uid://b0dmuil7inkid"
 config/features=PackedStringArray("4.4", "Forward Plus")
-run/max_fps=24
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="uid://ctnmr1y48d05p"
 config/icon="uid://cgo0lrrx1ukan"
+
+[audio]
+
+buses/default_bus_layout="uid://bfxctkpbkyrig"
 
 [autoload]
 

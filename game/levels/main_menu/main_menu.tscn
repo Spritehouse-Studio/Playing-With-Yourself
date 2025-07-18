@@ -46,12 +46,7 @@ layout_mode = 1
 
 [node name="exit_warning" parent="." instance=ExtResource("4_1cn4j")]
 visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
 
 [connection signal="pressed" from="margin_container/menu_buttons/start_button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="margin_container/menu_buttons/settings_button" to="." method="_on_settings_button_pressed"]

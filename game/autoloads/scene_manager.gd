@@ -4,6 +4,10 @@ extends Node
 ## All loaded scenes, including ones not currently attached to the scene tree
 var loaded_scenes: Array[BaseLevel]
 
+var current_scene: String:
+	get:
+		return get_tree().current_scene.name
+
 ## Generic scene change function
 func change_scene(scene: PackedScene) -> void:
 	var fader: Fader = UIManager.open_ui(Fader)

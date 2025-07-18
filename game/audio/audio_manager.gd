@@ -12,9 +12,9 @@ const AUDIO_OFF_DB: float = -60
 ## Parent of all spawned music players
 @onready var music_players: Node = $music_players
 ## The audio stream player of the current music track, fades out to next music player
-@onready var current_music_player: AudioStreamPlayer2D = music_players.get_node("current_music_player")
+@onready var current_music_player: AudioStreamPlayer = music_players.get_node("current_music_player")
 ## The audio stream player of the next music track, fades in from current music player
-@onready var next_music_player: AudioStreamPlayer2D = music_players.get_node("next_music_player")
+@onready var next_music_player: AudioStreamPlayer = music_players.get_node("next_music_player")
 
 ## The currently playing music track
 var current_track: MusicTrack
@@ -36,11 +36,12 @@ func _ready() -> void:
 	update_music_volume()
 
 ## Play a one shot audio clip
-func play_audio(audio: AudioStream, pitch_min: float = 1, pitch_max: float = 1) -> void:
+func play_audio(audio: AudioStream, position: Vector2, pitch_min: float = 1, pitch_max: float = 1) -> void:
 	var audio_player: AudioStreamPlayer2D = audio_player_prefab.instantiate()
 	audio_player.volume_db = sfx_volume
 	audio_player.pitch_scale = randf_range(pitch_min, pitch_max)
 	audio_player.stream = audio
+	audio_player.global_position = position
 	audio_players.add_child(audio_player)
 	audio_player.play()
 

@@ -18,7 +18,7 @@ signal reached_destination(current_x: float)
 
 #region Getters/setters
 ## The normalized direction of the actor's motion
-var current_direction_x: float:
+var current_direction_x: int:
 	get:
 		return sign(_actor_root.velocity.x)
 ## The actor's velocity on the horizontal axis.
@@ -31,18 +31,20 @@ var velocity_x: float:
 
 #region Public methods
 func load_event(value: Variant) -> void:
+	super.load_event(value)
 	move(value)
 
 ## Move the actor.
 func move(direction: float) -> void:
-	var x: float = sign(direction) * movement_speed
+	var normalized_dir: int = sign(direction)
+	var x: float = normalized_dir * movement_speed
 	if is_instance_valid(_grounder) and _grounder.is_grounded:
 		if abs(direction) > 0:
 			_actor_root.try_play_animation("move")
 		else:
 			_actor_root.try_play_animation("idle")
-	if x != velocity_x:
-		save_event(direction)
+	if x != velocity_x and not _actor_root.is_on_wall():
+		save_event(normalized_dir)
 	velocity_x = x
 
 ## Move horizontally to a particular point.
@@ -59,5 +61,5 @@ func stop() -> void:
 
 func _play_footstep() -> void:
 	if footstep_audio != null:
-		footstep_audio.play_random(0.75, 1.25)
+		footstep_audio.play_random(global_position, 0.75, 1.25)
 #endregion

@@ -5,5 +5,5 @@ class_name RandomAudio extends Resource
 @export var clips: Array[AudioStream] = []
 
 ## Play a random clip
-func play_random(pitch_min: float = 1, pitch_max: float = 1) -> void:
-	AudioManager.play_audio(clips[randi() % len(clips)], pitch_min, pitch_max)
+func play_random(position: Vector2, pitch_min: float = 1, pitch_max: float = 1) -> void:
+	AudioManager.play_audio(clips[randi() % len(clips)], position, pitch_min, pitch_max)

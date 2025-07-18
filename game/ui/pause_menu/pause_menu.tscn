@@ -116,6 +116,10 @@ layout_mode = 2
 layout_mode = 2
 text = "Resume"
 
+[node name="restart_button" parent="margin_container/menu_buttons" instance=ExtResource("1_hj2f6")]
+layout_mode = 2
+text = "Restart"
+
 [node name="settings_button" parent="margin_container/menu_buttons" instance=ExtResource("1_hj2f6")]
 layout_mode = 2
 text = "Settings"
@@ -134,6 +138,7 @@ layout_mode = 1
 
 [connection signal="animation_finished" from="animator" to="." method="_on_animator_animation_finished"]
 [connection signal="pressed" from="margin_container/menu_buttons/resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="margin_container/menu_buttons/restart_button" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="margin_container/menu_buttons/settings_button" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="margin_container/menu_buttons/quit_button" to="." method="_on_quit_button_pressed"]
 [connection signal="quit_canceled" from="margin_container/quit_warning" to="." method="_on_quit_warning_quit_canceled"]

@@ -20,6 +20,8 @@ class_name HealthManager extends TrackedComponent
 @onready var _recoiler: Recoiler = get_node_or_null(_recoiler_node_path)
 #endregion
 
+var hit_audio: AudioStream = preload("uid://dw1xuqb5gyrpa")
+
 #region Signals
 ## Emitted when the actor takes damage from an attack.
 signal took_damage(damage_amount: float)
@@ -62,6 +64,7 @@ func take_damage(attack: AttackBase) -> void:
 		_flasher.flash(hit_flash_color, 0.5, 0, 0.25, 0.25)
 	if is_instance_valid(_recoiler):
 		_recoiler.start_recoil(attack.angle, attack.force)
+	AudioManager.play_audio(hit_audio, global_position)
 	took_damage.emit(damage)
 	if current_health <= 0:
 		_die()
@@ -72,7 +75,10 @@ func add_health(heal_amount: float) -> void:
 #endregion
 
 func load_event(value: Variant) -> void:
-	_die()
+	super.load_event(value)
+	if _actor_root is Ghost:
+		_actor_root.disable()
+		_actor_root.finished_playing = true
 
 #region Non-public methods
 func _die() -> void:
