@@ -15,6 +15,7 @@ func reset() -> void:
 		save_point.reload()
 	GhostManager.reset()
 	GhostManager.reload()
+	LifeManager.start_life(30)
 	AudioManager.play_audio(reload_audio, save_point.global_position)
 
 func reload() -> void:
@@ -23,6 +24,7 @@ func reload() -> void:
 	if is_instance_valid(save_point):
 		save_point.reload()
 	GhostManager.reload()
+	LifeManager.start_life(30)
 	AudioManager.play_audio(reload_audio, save_point.global_position)
 
 func save(current_scene: PackedScene, save_point_path: String) -> void:

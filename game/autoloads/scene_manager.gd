@@ -14,7 +14,8 @@ func change_scene(scene: PackedScene) -> void:
 	await fader.faded_in
 	get_tree().change_scene_to_packed(scene)
 	fader.close()
-	await fader.faded_out
+	# Wait a frame for scene to become ready
+	await get_tree().process_frame
 
 ## Change to a new scene from one door to another
 func change_scene_transition(scene: PackedScene, transition_name: String, enter_scale: float) -> void:

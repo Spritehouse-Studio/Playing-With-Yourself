@@ -4,6 +4,9 @@ class_name LifeTimerUI extends Control
 @onready var life_time_label: Label = life_progress_bar.get_node_or_null("lifetime_label")
 
 func _ready() -> void:
+	life_progress_bar.max_value = LifeManager.max_time
+	_update_progress()
+	_update_time_label(LifeManager.current_sec)
 	LifeManager.life_started.connect(_on_life_started)
 	LifeManager.time_changed_sec.connect(_on_time_changed)
 	LifeManager.max_time_changed.connect(_on_max_time_changed)
