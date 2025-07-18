@@ -9,6 +9,7 @@ class_name InputController extends ActorComponentBase
 @export_node_path("Facer") var _facer_node_path: NodePath
 @export_node_path("Grounder") var _grounder_node_path: NodePath
 @export_node_path("GroundMover") var _mover_node_path: NodePath
+@export_node_path("HealthManager") var _health_manager_node_path: NodePath
 @export_node_path("Interactor") var _interactor_node_path: NodePath
 @export_node_path("Jumper") var _jumper_node_path: NodePath
 @export_node_path("WeaponWielder") var _weapon_node_path: NodePath
@@ -17,6 +18,7 @@ class_name InputController extends ActorComponentBase
 #region Available nodes on ready
 @onready var _facer: Facer = get_node_or_null(_facer_node_path)
 @onready var _grounder: Grounder = get_node_or_null(_grounder_node_path)
+@onready var _health_manager: HealthManager = get_node_or_null(_health_manager_node_path)
 @onready var _mover: GroundMover = get_node_or_null(_mover_node_path)
 @onready var _interactor: Interactor = get_node_or_null(_interactor_node_path)
 @onready var _jumper: Jumper = get_node_or_null(_jumper_node_path)
@@ -71,6 +73,10 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and is_instance_valid(_interactor):
 		_interactor.try_interact()
+	elif event.is_action_pressed("reload"):
+		if is_instance_valid(_health_manager):
+			_health_manager._die()
+		SessionManager.reload()
 #endregion
 
 #region Non-public methods

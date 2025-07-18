@@ -28,6 +28,7 @@ collision_layer = 1
 platform_floor_layers = 2
 platform_wall_layers = 2
 script = ExtResource("2_feufw")
+_health_manager_node_path = NodePath("health_manager")
 _input_controller_node_path = NodePath("input_controller")
 
 [node name="main_sprite" parent="." index="1"]
@@ -60,6 +61,7 @@ coyote_time = 0.05
 _facer_node_path = NodePath("../facer")
 _grounder_node_path = NodePath("../grounder")
 _mover_node_path = NodePath("../mover")
+_health_manager_node_path = NodePath("../health_manager")
 _interactor_node_path = NodePath("../interactor")
 _jumper_node_path = NodePath("../jumper")
 _weapon_node_path = NodePath("../weapon_wielder")
