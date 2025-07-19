@@ -2,6 +2,9 @@ class_name Lever extends Interactable
 
 @onready var offset: Marker2D = $offset
 
+var toggle_sound: AudioStream = preload("uid://7aervxbp12sf")
+
+
 var toggled: bool
 var pulling_actor: ActorBase
 
@@ -10,6 +13,8 @@ func _process(delta: float) -> void:
 		pulling_actor.global_position = offset.global_position
 
 func interact(interacting: ActorBase) -> void:
+	if is_instance_valid(pulling_actor) and pulling_actor != interacting:
+		return
 	var grounder: Grounder = interacting.get_node("grounder")
 	if is_instance_valid(grounder):
 		if grounder.is_airborne:
@@ -36,6 +41,7 @@ func pull(interacting: ActorBase) -> void:
 			interacting.disable_input = true
 		interacting.velocity.x = 0
 	await animator.animation_finished
+	AudioManager.play_audio(toggle_sound, global_position, 0.75, 1.25)
 	#if interacting is PlayerBase:
 		#StateManager.save_state(get_path(), true)
 	super.interact(interacting)
@@ -49,6 +55,7 @@ func release(interacting: ActorBase) -> void:
 			interacting.disable_input = false
 			#StateManager.save_state(get_path(), false)
 		interacting.animated = true
+	AudioManager.play_audio(toggle_sound, global_position, 0.75, 1.25)
 	toggled = false
 	pulling_actor = null
 	super.interact(interacting)

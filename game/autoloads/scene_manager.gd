@@ -3,9 +3,6 @@ extends Node
 
 var main_menu_scene: PackedScene = preload("uid://b0dmuil7inkid")
 
-## All loaded scenes, including ones not currently attached to the scene tree
-var loaded_scenes: Array[BaseLevel]
-
 var current_scene: String:
 	get:
 		return get_tree().current_scene.name

@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0dmuil7inkid"]
+[gd_scene load_steps=6 format=3 uid="uid://b0dmuil7inkid"]
 
 [ext_resource type="Script" uid="uid://cyquscbdss46d" path="res://game/levels/main_menu/main_menu.gd" id="1_1jaio"]
 [ext_resource type="PackedScene" uid="uid://hhh5ydqhefgu" path="res://game/ui/menu_button/menu_button.tscn" id="2_u85ko"]
 [ext_resource type="PackedScene" uid="uid://bfku8uh4s7uwq" path="res://game/ui/stackable/settings/settings_ui.tscn" id="3_u85ko"]
 [ext_resource type="PackedScene" uid="uid://djlyp5j0vdauj" path="res://game/ui/quit_warning/quit_warning.tscn" id="4_1cn4j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1cn4j"]
+font_size = 64
+font_color = Color(0.101961, 0.101961, 0.101961, 1)
+outline_size = 4
+outline_color = Color(0.94902, 0.94902, 0.94902, 1)
 
 [node name="main_menu" type="Control"]
 layout_mode = 3
@@ -27,6 +33,13 @@ grow_vertical = 2
 [node name="menu_buttons" type="VBoxContainer" parent="margin_container"]
 layout_mode = 2
 theme_override_constants/separation = 32
+
+[node name="title" type="Label" parent="margin_container/menu_buttons"]
+layout_mode = 2
+text = "PLAYING WITH YOURSELF"
+label_settings = SubResource("LabelSettings_1cn4j")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="start_button" parent="margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
 layout_mode = 2

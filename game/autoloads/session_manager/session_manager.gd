@@ -1,7 +1,7 @@
 extends Node2D
 
-var first_scene: PackedScene = preload("uid://d3k4bi03gjyyn")
-var reload_audio: AudioStream = preload("uid://b7w54l64tu6cs")
+var first_scene: PackedScene = preload("uid://bwn1xmu0jd7ui")
+var reload_audio: AudioStream = preload("uid://6e6plymqvghr")
 
 @onready var animator: AnimationPlayer = $animator
 @onready var win_text: Label = $canvas_layer/win_text
@@ -13,7 +13,7 @@ var session_duration: float
 
 var camera: GameCamera:
 	get:
-		if get_tree().current_scene is BaseLevel:
+		if get_tree().current_scene is MainLevel:
 			return get_tree().current_scene.camera
 		return null
 
@@ -60,10 +60,9 @@ func win_game() -> void:
 	LifeManager.paused = true
 	await get_tree().create_timer(5).timeout
 	var num_ghosts: int = len(GhostManager.ghosts)
-	var score: int = floor(session_duration / 30 + 1000 / num_ghosts)
-	if SaveManager.save_data == null:
+	var score: int = floor(session_duration / 3000 + 100000 / num_ghosts)
+	if SaveManager.save_data == null or score > SaveManager.save_data.high_score:
 		SaveManager.save_data = SaveData.new()
-	if score > SaveManager.save_data.high_score:
 		SaveManager.save_data.high_score = score
 		SaveManager.save_data.num_ghosts = num_ghosts
 		SaveManager.save_data.time = session_duration

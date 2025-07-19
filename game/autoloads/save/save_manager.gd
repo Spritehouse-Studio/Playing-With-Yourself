@@ -17,7 +17,7 @@ var save_data: SaveData
 
 #region Non-public variables
 ## The default save configuration if a new game is started.
-var _default_save = preload("uid://b8toa1sc0aruw")
+var _default_save = preload("uid://byamosnpsgnfn")
 ## The ID of the selected profile.
 var _selected_profile_id: int = 0
 #endregion
@@ -54,8 +54,8 @@ func save_game() -> void:
 ## Load game data from disk.
 func _load_game_data() -> SaveData:
 	if not ResourceLoader.exists(_save_path):
-		print("No save data found")
-		return null
+		print("No save data found, creating new one...")
+		return _default_save
 	return load(_save_path)
 	
 ## Load settings from disk.

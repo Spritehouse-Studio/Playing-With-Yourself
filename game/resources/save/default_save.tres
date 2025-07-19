@@ -1,6 +1,10 @@
-[gd_resource type="Resource" script_class="SaveData" load_steps=2 format=3 uid="uid://b8toa1sc0aruw"]
+[gd_resource type="Resource" script_class="SaveData" load_steps=2 format=3 uid="uid://byamosnpsgnfn"]
 
 [ext_resource type="Script" uid="uid://c5e2y1x2eo5w" path="res://game/autoloads/save/save_data.gd" id="1_ttlxx"]
 
 [resource]
 script = ExtResource("1_ttlxx")
+high_score = -9999999
+num_ghosts = 99999999
+time = 1e+08
+metadata/_custom_type_script = "uid://c5e2y1x2eo5w"

@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cekes40tgg773"]
+[gd_scene load_steps=4 format=3 uid="uid://cekes40tgg773"]
 
 [ext_resource type="PackedScene" uid="uid://dmt56yh680gsa" path="res://game/gameplay/combat/attack_base.tscn" id="1_4iyab"]
 [ext_resource type="AnimationLibrary" uid="uid://jpsv7wqvu00x" path="res://game/resources/animations/slash.tres" id="2_7vy2v"]
-[ext_resource type="AudioStream" uid="uid://dfhajvivuwlfb" path="res://game/gameplay/combat/slash/assets/audio/swipe.ogg" id="2_igcot"]
 [ext_resource type="Script" uid="uid://ban12y84vog17" path="res://game/actors/actor_components/free_on_animation_finish.gd" id="3_7vy2v"]
 
 [node name="slash" instance=ExtResource("1_4iyab")]
@@ -10,7 +9,6 @@ collision_layer = 8
 collision_mask = 20
 damage = 1.0
 parent_to_actor = true
-slash_audio = ExtResource("2_igcot")
 
 [node name="animator" parent="." index="0"]
 libraries = {

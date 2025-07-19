@@ -1,9 +1,10 @@
 name: Export and Publish
 on:
-  push:
-    branches: [dev, main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
+  # push:
+  #   branches: [dev, main]
+  # pull_request:
+  #   branches: [main]
 jobs:
   export_game:
     runs-on: ubuntu-latest

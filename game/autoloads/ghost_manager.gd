@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 var ghost_prefab: PackedScene = preload("uid://t7ypauv6ao1y")
 

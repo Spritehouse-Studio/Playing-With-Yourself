@@ -8,7 +8,7 @@ class_name SavePoint extends Area2D
 var player_prefab: PackedScene = preload("uid://bx46gngy5shiy")
 
 ## The root of the level scene that this save point is located in
-@onready var level_root: BaseLevel = get_owner()
+@onready var level_root: MainLevel = get_owner()
 @onready var player_offset: Node2D = $player_offset
 
 ## The data associated with this save point

@@ -13,7 +13,7 @@ class_name SceneTransition extends Area2D
 ## The door's collision shape
 @onready var collision: CollisionShape2D = $collision
 ## The root of the level scene that contains this door
-@onready var level_root: BaseLevel = get_owner()
+@onready var level_root: MainLevel = get_owner()
 ## The target for the player to reach upon entering from this door
 @onready var target: Marker2D = $target
 @onready var player_offset: Marker2D = $player_offset
@@ -32,7 +32,7 @@ func enter_from(enter_scale: float) -> void:
 	var player: PlayerBase = player_prefab.instantiate()
 	player.global_position = player_offset.global_position
 	collision.disabled = true
-	level_root.add_child(player)
+	get_owner().add_child(player)
 	
 	#StateManager.force_update()
 	

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2buj8qsslq8w"]
+[gd_scene load_steps=7 format=3 uid="uid://b2buj8qsslq8w"]
 
 [ext_resource type="PackedScene" uid="uid://dmt56yh680gsa" path="res://game/gameplay/combat/attack_base.tscn" id="1_3ohfw"]
 [ext_resource type="AnimationLibrary" uid="uid://bnc3yvflrcio7" path="res://game/resources/animations/lightning.res" id="2_dvjtc"]
-[ext_resource type="Texture2D" uid="uid://bu42fdjabvu34" path="res://game/actors/enemies/boss/assets/visual/lightning_warn0000.png" id="3_dvjtc"]
+[ext_resource type="AudioStream" uid="uid://bybdqxd2c6ko8" path="res://game/gameplay/combat/boss/lightning.ogg" id="2_k3o0m"]
+[ext_resource type="Texture2D" uid="uid://cb5pc035rs5ia" path="res://game/actors/enemies/boss/assets/visual/lightning_strike0001.png" id="4_k3o0m"]
 [ext_resource type="Script" uid="uid://ban12y84vog17" path="res://game/actors/actor_components/free_on_animation_finish.gd" id="11_2ubdd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mik4q"]
@@ -11,6 +12,7 @@ size = Vector2(90, 66)
 [node name="lightning" instance=ExtResource("1_3ohfw")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 16
+attack_audio = ExtResource("2_k3o0m")
 
 [node name="animator" parent="." index="0"]
 libraries = {
@@ -21,12 +23,11 @@ libraries = {
 position = Vector2(0, -217)
 
 [node name="sprite" parent="offset" index="0"]
-texture = ExtResource("3_dvjtc")
+texture = ExtResource("4_k3o0m")
 
 [node name="collision" type="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, -30)
 shape = SubResource("RectangleShape2D_mik4q")
-disabled = true
 
 [node name="free_on_animation_finish" type="Node2D" parent="." index="3"]
 script = ExtResource("11_2ubdd")

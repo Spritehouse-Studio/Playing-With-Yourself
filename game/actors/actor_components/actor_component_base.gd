@@ -11,15 +11,9 @@ class_name ActorComponentBase extends Node2D
 @onready var _actor_root: ActorBase = get_node_or_null(_root_node_path)
 #endregion
 
-#region Public variables
-## The owner of the actor itself.
-var actor_owner: Node2D
-#endregion
-
 #region Godot's built-in methods
 func _ready() -> void:
 	# If actor root is not defined, default to the owner of this scene
 	if not is_instance_valid(_actor_root):
 		_actor_root = get_owner()
-	actor_owner = _actor_root.owner
 #endregion

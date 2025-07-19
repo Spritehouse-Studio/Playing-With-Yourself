@@ -109,6 +109,7 @@ var _target_zoom: float:
 #region Godot's built-in methods
 func _ready() -> void:
 	zoom = Vector2.ONE * base_zoom
+	make_current()
 
 func _process(delta: float) -> void:
 	#for target in targets:

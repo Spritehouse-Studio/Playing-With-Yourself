@@ -37,7 +37,7 @@ func attack() -> void:
 			_actor_root.add_child(attack)
 		else:
 			attack.global_position = _actor_root.global_position
-			actor_owner.add_child(attack)
+			#actor_owner.add_child(attack)
 		attack.activate()
 	await _actor_root.animator.animation_finished
 	_actor_root.animated = true

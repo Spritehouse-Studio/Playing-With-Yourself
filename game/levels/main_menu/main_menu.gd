@@ -49,7 +49,7 @@ func _on_exit_warning_quit_confirmed() -> void:
 
 func _on_high_score_button_pressed() -> void:
 	high_score_panel.show()
-	if SaveManager.save_data == null:
+	if SaveManager.save_data.high_score < 0:
 		high_score_label.text = "No high score recorded. Try finishing a game!"
 		return
 	high_score_label.text = "High Score: %d" % SaveManager.save_data.high_score

@@ -87,7 +87,7 @@ func _die() -> void:
 	if corpse_scene != null:
 		var corpse: Node2D = corpse_scene.instantiate()
 		corpse.global_position = _actor_root.global_position
-		actor_owner.add_child(corpse)
+		#actor_owner.add_child(corpse)
 	_actor_root.queue_free()
 #endregion
 

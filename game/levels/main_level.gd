@@ -1,14 +1,13 @@
-class_name BaseLevel extends Node2D
-## Base class for all levels in the game.
+class_name MainLevel extends Node2D
 
-## The music track played in this scene
+## The music track played in this level
 @export var music_track: MusicTrack
 
 #region Available nodes on ready
 ## The level's camera.
-@onready var camera: GameCamera = get_node_or_null("game_camera")
-## The level's tile map.
-@onready var tile_map: TileMapLayer = get_node_or_null("tile_map")
+@onready var camera: GameCamera = $game_camera
+## The level's tile map. 
+@onready var tile_map: TileMapLayer = $tile_map
 #endregion
 
 #region Godot's built-in methods
@@ -19,7 +18,7 @@ func _ready() -> void:
 
 #region Non-public methods
 ## Set up the game camera for this specific level.
-func _setup_camera() -> void:
+func _setup_camera()  -> void:
 	if camera == null: 
 		return
 	camera.enabled = true
