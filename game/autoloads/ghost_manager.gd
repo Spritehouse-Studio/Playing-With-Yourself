@@ -35,7 +35,7 @@ func reload() -> void:
 	_reload_ghosts()
 	_create_ghost()
 	_create_new_ghost_events()
-	_initial_scene_load()
+	#_initial_scene_load()
 
 func reset() -> void:
 	all_ghost_events.clear()
@@ -44,14 +44,14 @@ func reset() -> void:
 		if child is Ghost:
 			child.queue_free()
 
-func _initial_scene_load() -> void:
-	var scene_change_event := GhostEvent.new()
-	scene_change_event.time = current_time
-	scene_change_event.type = "scene_change"
-	scene_change_event.value = SceneManager.current_scene
-	if is_instance_valid(player):
-		scene_change_event.ghost_position = player.global_position
-	last_ghost_events.append(scene_change_event)
+#func _initial_scene_load() -> void:
+	#var scene_change_event := GhostEvent.new()
+	#scene_change_event.time = current_time
+	#scene_change_event.type = "scene_change"
+	#scene_change_event.value = SceneManager.current_scene
+	#if is_instance_valid(player):
+		#scene_change_event.ghost_position = player.global_position
+	#last_ghost_events.append(scene_change_event)
 
 func _create_new_ghost_events() -> void:
 	if is_instance_valid(player):

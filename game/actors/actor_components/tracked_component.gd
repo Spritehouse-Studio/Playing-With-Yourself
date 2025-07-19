@@ -8,12 +8,14 @@ var component_name: String:
 
 var events: Array[GhostManager.GhostEvent]:
 	get:
+		if _actor_root.ghost_index >= len(GhostManager.all_ghost_events):
+			return []
 		return GhostManager.all_ghost_events[_actor_root.ghost_index].events.filter(func(ev: GhostManager.GhostEvent): 
 			return ev.type == component_name)
 
 var num_events: int:
 	get:
-		return events.size()
+		return len(events)
 
 var current_event: GhostManager.GhostEvent:
 	get:
@@ -38,9 +40,9 @@ func _process(delta: float) -> void:
 			if GhostManager.current_time >= current_event.time:
 				var new_pos: Vector2 = current_event.ghost_position
 				var event_val: Variant = current_event.value
-				if next_event == null or GhostManager.current_time < next_event.time:
-					_actor_root.global_position = new_pos
-					load_event(event_val)
+				#if next_event == null or GhostManager.current_time < next_event.time:
+				_actor_root.global_position = new_pos
+				load_event(event_val)
 				if current_event_index < num_events - 1:
 					current_event_index += 1
 				else:

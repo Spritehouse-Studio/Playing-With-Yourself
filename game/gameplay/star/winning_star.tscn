@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://7r5l3am0lun7"]
+[gd_scene load_steps=8 format=3 uid="uid://7r5l3am0lun7"]
 
 [ext_resource type="Script" uid="uid://xtmgaptwfqvu" path="res://game/gameplay/star/star.gd" id="1_fehwn"]
 [ext_resource type="Texture2D" uid="uid://b6a4ji4s5itc3" path="res://game/gameplay/star/star.png" id="1_ux21c"]
+[ext_resource type="Texture2D" uid="uid://eb8smkylaxhj" path="res://game/ui/circle.png" id="3_kgvtw"]
 
 [sub_resource type="Animation" id="Animation_gfat8"]
 resource_name = "spin"
@@ -28,6 +29,10 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_fehwn"]
 radius = 35.0
 
+[sub_resource type="Curve" id="Curve_kgvtw"]
+_data = [Vector2(0, 1), 0.0, -0.176836, 0, 0, Vector2(1, 0), -3.22899, 0.0, 0, 0]
+point_count = 2
+
 [node name="winning_star" type="Area2D"]
 collision_layer = 0
 script = ExtResource("1_fehwn")
@@ -41,7 +46,19 @@ libraries = {
 texture = ExtResource("1_ux21c")
 
 [node name="collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_fehwn")
+
+[node name="particles" type="CPUParticles2D" parent="."]
+amount = 32
+texture = ExtResource("3_kgvtw")
+lifetime = 0.5
+emission_shape = 1
+emission_sphere_radius = 16.0
+scale_amount_min = 0.0
+scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_kgvtw")
+color = Color(0.992157, 0.996078, 0.101961, 1)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

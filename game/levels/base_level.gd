@@ -41,5 +41,7 @@ func _play_music() -> void:
 #endregion
 
 func _on_player_death() -> void:
-	await get_tree().create_timer(1).timeout
-	SessionManager.reload()
+	if not LifeManager.is_stopped():
+		LifeManager.stop()
+		await get_tree().create_timer(1).timeout
+		SessionManager.reload()

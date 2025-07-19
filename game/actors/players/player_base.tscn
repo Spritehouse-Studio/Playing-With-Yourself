@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://bx46gngy5shiy"]
+[gd_scene load_steps=17 format=3 uid="uid://bx46gngy5shiy"]
 
 [ext_resource type="PackedScene" uid="uid://pogl1he7tcpw" path="res://game/actors/actor_base.tscn" id="1_6kfqv"]
 [ext_resource type="Script" uid="uid://dmqc5t036sbfx" path="res://game/actors/players/player_base.gd" id="2_feufw"]
-[ext_resource type="Texture2D" uid="uid://dknt5rpsu01qa" path="res://game/actors/players/assets/visual/run2.png" id="3_lu8in"]
 [ext_resource type="Script" uid="uid://cs0jyiac5mouy" path="res://game/actors/actor_components/facer.gd" id="3_pvgrm"]
 [ext_resource type="Script" uid="uid://cpuyf5qvw5gjg" path="res://game/actors/actor_components/grounder/grounder.gd" id="4_m3h7j"]
 [ext_resource type="Script" uid="uid://ctsdq0ccv1th3" path="res://game/actors/actor_components/input_controller.gd" id="5_lcam0"]
@@ -25,14 +24,13 @@ radius = 27.0185
 [node name="player_base" groups=["players"] instance=ExtResource("1_6kfqv")]
 z_index = 1
 collision_layer = 1
+floor_snap_length = 2.0
 platform_floor_layers = 2
 platform_wall_layers = 2
 script = ExtResource("2_feufw")
 _health_manager_node_path = NodePath("health_manager")
 _input_controller_node_path = NodePath("input_controller")
-
-[node name="main_sprite" parent="." index="1"]
-texture = ExtResource("3_lu8in")
+_grounder_node_path = NodePath("grounder")
 
 [node name="collider" parent="." index="2"]
 position = Vector2(0, 13)
@@ -77,7 +75,6 @@ land_audio = ExtResource("10_lu8in")
 script = ExtResource("18_nx0tv")
 movement_speed = 350.0
 footstep_audio = ExtResource("12_lu8in")
-_grounder_node_path = NodePath("../grounder")
 metadata/_custom_type_script = "uid://bqt5065uevmbi"
 
 [node name="weapon_wielder" type="Node2D" parent="." index="9"]

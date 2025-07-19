@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cik3j12thy3mv"]
+
+[ext_resource type="PackedScene" uid="uid://dmt56yh680gsa" path="res://game/gameplay/combat/attack_base.tscn" id="1_jlj4g"]
+[ext_resource type="AnimationLibrary" uid="uid://beci11fraki8e" path="res://game/resources/animations/lightning_air.res" id="2_jlj4g"]
+[ext_resource type="Texture2D" uid="uid://bu42fdjabvu34" path="res://game/actors/enemies/boss/assets/visual/lightning_warn0000.png" id="3_jlj4g"]
+[ext_resource type="Script" uid="uid://ban12y84vog17" path="res://game/actors/actor_components/free_on_animation_finish.gd" id="4_jov1r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3o0m"]
+size = Vector2(36, 406)
+
+[node name="lightning_air" instance=ExtResource("1_jlj4g")]
+scale = Vector2(0.5, 0.5)
+collision_layer = 16
+
+[node name="animator" parent="." index="0"]
+libraries = {
+&"": ExtResource("2_jlj4g")
+}
+
+[node name="sprite" parent="offset" index="0"]
+texture = ExtResource("3_jlj4g")
+
+[node name="collision" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, 14)
+shape = SubResource("RectangleShape2D_k3o0m")
+disabled = true
+
+[node name="free_on_animation_finish" type="Node2D" parent="." index="3"]
+script = ExtResource("4_jov1r")
+_animator_node_path = NodePath("../animator")
+animation_name = "attack"
+metadata/_custom_type_script = "uid://ban12y84vog17"

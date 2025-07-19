@@ -7,10 +7,6 @@ class_name GroundMover extends TrackedComponent
 @export var footstep_audio: RandomAudio
 #endregion
 
-@export_node_path("Grounder") var _grounder_node_path: NodePath
-
-@onready var _grounder: Grounder = get_node_or_null(_grounder_node_path)
-
 #region Signals
 ## Emitted when the actor has reached its destination point.
 signal reached_destination(current_x: float)
@@ -38,11 +34,6 @@ func load_event(value: Variant) -> void:
 func move(direction: float) -> void:
 	var normalized_dir: int = sign(direction)
 	var x: float = normalized_dir * movement_speed
-	if is_instance_valid(_grounder) and _grounder.is_grounded:
-		if abs(direction) > 0:
-			_actor_root.try_play_animation("move")
-		else:
-			_actor_root.try_play_animation("idle")
 	if x != velocity_x and not _actor_root.is_on_wall():
 		save_event(normalized_dir)
 	velocity_x = x

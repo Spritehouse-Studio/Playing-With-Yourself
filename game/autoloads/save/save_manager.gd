@@ -54,8 +54,8 @@ func save_game() -> void:
 ## Load game data from disk.
 func _load_game_data() -> SaveData:
 	if not ResourceLoader.exists(_save_path):
-		print("No save data found, creating new save")
-		return _default_save
+		print("No save data found")
+		return null
 	return load(_save_path)
 	
 ## Load settings from disk.

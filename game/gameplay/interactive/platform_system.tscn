@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5vrixc077r0u"]
+
+[ext_resource type="PackedScene" uid="uid://bey3vyc5h8uns" path="res://game/gameplay/interactive/lever/lever.tscn" id="1_3hq7i"]
+[ext_resource type="PackedScene" uid="uid://galeqqdwxc80" path="res://game/gameplay/platforms/platform.tscn" id="2_xci6m"]
+[ext_resource type="Script" uid="uid://1lrewfcn85xj" path="res://game/gameplay/interactive/signal_linker.gd" id="3_8g8rv"]
+
+[sub_resource type="Curve2D" id="Curve2D_51xbm"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 600, 0)
+}
+point_count = 2
+
+[node name="platform_system" type="Node2D"]
+
+[node name="lever" parent="." instance=ExtResource("1_3hq7i")]
+
+[node name="platform" parent="." instance=ExtResource("2_xci6m")]
+curve = SubResource("Curve2D_51xbm")
+move_on_start = false
+
+[node name="signal_linker" type="Node" parent="."]
+script = ExtResource("3_8g8rv")
+_signal_owner_node_path = NodePath("../lever")
+_function_owner_node_path = NodePath("../platform")
+_signal_trigger_name = "interacted"
+_triggered_function_name = "toggle_movement"
+metadata/_custom_type_script = "uid://1lrewfcn85xj"

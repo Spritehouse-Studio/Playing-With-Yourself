@@ -17,3 +17,6 @@ bus = &"Music"
 
 [node name="next_music_player" type="AudioStreamPlayer" parent="music_players"]
 bus = &"Music"
+
+[connection signal="finished" from="music_players/current_music_player" to="." method="_on_current_music_player_finished"]
+[connection signal="finished" from="music_players/next_music_player" to="." method="_on_next_music_player_finished"]

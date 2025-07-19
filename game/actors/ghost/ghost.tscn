@@ -20,6 +20,7 @@ radius = 27.0185
 [node name="ghost" instance=ExtResource("1_21ek4")]
 collision_layer = 64
 script = ExtResource("2_toso6")
+_grounder_node_path = NodePath("grounder")
 
 [node name="main_sprite" parent="." index="1"]
 modulate = Color(1, 1, 1, 0.25098)
@@ -53,7 +54,6 @@ land_audio = ExtResource("8_aygeg")
 script = ExtResource("5_2jces")
 movement_speed = 350.0
 footstep_audio = ExtResource("10_aygeg")
-_grounder_node_path = NodePath("../grounder")
 metadata/_custom_type_script = "uid://bqt5065uevmbi"
 
 [node name="weapon_wielder" type="Node2D" parent="." index="8"]

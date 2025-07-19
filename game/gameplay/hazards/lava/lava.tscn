@@ -51,6 +51,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 16, 512)
 
 [node name="collision" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_tn5xl")
 
 [node name="left_ray" type="RayCast2D" parent="." index="3"]

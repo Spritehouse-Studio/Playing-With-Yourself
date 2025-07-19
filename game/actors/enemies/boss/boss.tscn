@@ -48,12 +48,13 @@ size = Vector2(48, 112)
 size = Vector2(48, 112)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pef7n"]
-size = Vector2(231, 121)
+size = Vector2(284, 121)
 
 [node name="boss" instance=ExtResource("1_obt61")]
 material = SubResource("ShaderMaterial_mtj58")
 collision_layer = 6
 script = ExtResource("3_kixy1")
+follow_y = false
 
 [node name="hand" type="Sprite2D" parent="." index="0"]
 use_parent_material = true
@@ -100,5 +101,6 @@ position = Vector2(-48, 60)
 
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="begin_fight_range" to="." method="_on_begin_fight_range_body_entered"]
+[connection signal="body_exited" from="begin_fight_range" to="." method="_on_begin_fight_range_body_exited"]
 
 [editable path="health_manager"]
