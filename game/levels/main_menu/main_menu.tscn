@@ -1,9 +1,62 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0dmuil7inkid"]
+[gd_scene load_steps=13 format=3 uid="uid://b0dmuil7inkid"]
 
 [ext_resource type="Script" uid="uid://cyquscbdss46d" path="res://game/levels/main_menu/main_menu.gd" id="1_1jaio"]
+[ext_resource type="Texture2D" uid="uid://b8umjexkn37i7" path="res://game/levels/main_menu/twinkle.png" id="2_o7ecs"]
 [ext_resource type="PackedScene" uid="uid://hhh5ydqhefgu" path="res://game/ui/menu_button/menu_button.tscn" id="2_u85ko"]
 [ext_resource type="PackedScene" uid="uid://bfku8uh4s7uwq" path="res://game/ui/stackable/settings/settings_ui.tscn" id="3_u85ko"]
 [ext_resource type="PackedScene" uid="uid://djlyp5j0vdauj" path="res://game/ui/quit_warning/quit_warning.tscn" id="4_1cn4j"]
+
+[sub_resource type="Animation" id="Animation_1cn4j"]
+resource_name = "background"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("background:texture:gradient:colors")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [PackedColorArray(0.533333, 0.533333, 0.533333, 1, 0.94902, 0.94902, 0.94902, 1), PackedColorArray(0.94902, 0.94902, 0.94902, 1, 0.533333, 0.533333, 0.533333, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_o7ecs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("background:texture:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedColorArray(0.666667, 0.666667, 0.666667, 1, 0.94902, 0.94902, 0.94902, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7ecs"]
+_data = {
+&"RESET": SubResource("Animation_o7ecs"),
+&"background": SubResource("Animation_1cn4j")
+}
+
+[sub_resource type="Gradient" id="Gradient_1cn4j"]
+colors = PackedColorArray(0.666667, 0.666667, 0.666667, 1, 0.94902, 0.94902, 0.94902, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o7ecs"]
+gradient = SubResource("Gradient_1cn4j")
+width = 960
+height = 540
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_due3h"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.217472, 0.972625), 0.818202, 0.818202, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_1cn4j"]
 font_size = 64
@@ -22,7 +75,39 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_1jaio")
 
-[node name="margin_container" type="MarginContainer" parent="."]
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7ecs")
+}
+autoplay = "background"
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_o7ecs")
+
+[node name="stars" type="CPUParticles2D" parent="background"]
+position = Vector2(480, 270)
+amount = 256
+texture = ExtResource("2_o7ecs")
+lifetime = 4.0
+preprocess = 4.0
+randomness = 0.25
+emission_shape = 3
+emission_rect_extents = Vector2(480, 270)
+gravity = Vector2(0, 0)
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+scale_amount_min = 0.0
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_due3h")
+color = Color(0.94902, 0.94902, 0.94902, 1)
+
+[node name="margin_container" type="MarginContainer" parent="background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,30 +115,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="menu_buttons" type="VBoxContainer" parent="margin_container"]
+[node name="menu_buttons" type="VBoxContainer" parent="background/margin_container"]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="title" type="Label" parent="margin_container/menu_buttons"]
+[node name="title" type="Label" parent="background/margin_container/menu_buttons"]
 layout_mode = 2
-text = "PLAYING WITH YOURSELF"
+text = "PLAYING WITH
+YOURSELF"
 label_settings = SubResource("LabelSettings_1cn4j")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="start_button" parent="margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
+[node name="start_button" parent="background/margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
 layout_mode = 2
 text = "Start"
 
-[node name="settings_button" parent="margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
+[node name="settings_button" parent="background/margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
 layout_mode = 2
 text = "Settings"
 
-[node name="high_score_button" parent="margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
+[node name="high_score_button" parent="background/margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
 layout_mode = 2
 text = "High Score"
 
-[node name="exit_button" parent="margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
+[node name="exit_button" parent="background/margin_container/menu_buttons" instance=ExtResource("2_u85ko")]
 layout_mode = 2
 text = "Exit"
 
@@ -114,10 +200,10 @@ size_flags_vertical = 3
 layout_mode = 2
 text = "Back"
 
-[connection signal="pressed" from="margin_container/menu_buttons/start_button" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="margin_container/menu_buttons/settings_button" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="margin_container/menu_buttons/high_score_button" to="." method="_on_high_score_button_pressed"]
-[connection signal="pressed" from="margin_container/menu_buttons/exit_button" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="background/margin_container/menu_buttons/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="background/margin_container/menu_buttons/settings_button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="background/margin_container/menu_buttons/high_score_button" to="." method="_on_high_score_button_pressed"]
+[connection signal="pressed" from="background/margin_container/menu_buttons/exit_button" to="." method="_on_exit_button_pressed"]
 [connection signal="hidden" from="settings_ui" to="." method="_on_settings_ui_hidden"]
 [connection signal="quit_canceled" from="exit_warning" to="." method="_on_exit_warning_quit_canceled"]
 [connection signal="quit_confirmed" from="exit_warning" to="." method="_on_exit_warning_quit_confirmed"]

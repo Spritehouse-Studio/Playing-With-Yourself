@@ -14,6 +14,7 @@ class_name MainLevel extends Node2D
 func _ready() -> void:
 	_setup_camera()
 	_play_music()
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 #endregion
 
 #region Non-public methods

@@ -1,7 +1,23 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://cyfwlve5v0wd5"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://cyfwlve5v0wd5"]
 
 [ext_resource type="Texture2D" uid="uid://biqksxx3rogik" path="res://game/ui/slider_handle.png" id="1_tv8eo"]
 [ext_resource type="FontFile" uid="uid://c3k7bfk87jj7t" path="res://game/resources/fonts/open_sans/OpenSans-VariableFont_wdth,wght.ttf" id="2_tv8eo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nwx65"]
+bg_color = Color(0.666667, 0.666667, 0.666667, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.101961, 0.101961, 0.101961, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7iugq"]
 bg_color = Color(0.94902, 0.94902, 0.94902, 1)
@@ -93,6 +109,7 @@ expand_margin_bottom = 8.0
 default_font = ExtResource("2_tv8eo")
 default_font_size = 16
 Button/colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_nwx65")
 Button/styles/normal = SubResource("StyleBoxFlat_7iugq")
 HBoxContainer/constants/separation = 32
 HSlider/icons/grabber = ExtResource("1_tv8eo")

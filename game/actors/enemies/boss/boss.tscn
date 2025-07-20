@@ -73,6 +73,7 @@ libraries = {
 libraries = {
 &"": ExtResource("3_mtj58")
 }
+autoplay = "idle"
 
 [node name="main_sprite" parent="." index="2"]
 texture = ExtResource("8_kixy1")

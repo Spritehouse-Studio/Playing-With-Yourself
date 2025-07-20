@@ -24,6 +24,7 @@ func _ready() -> void:
 	background_blur.texture = ImageTexture.create_from_image(viewport_texture.get_image())
 
 func open() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if not can_toggle:
 		return
 	show()
@@ -31,6 +32,7 @@ func open() -> void:
 	animator.play("open")
 	
 func close() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	if not can_toggle:
 		return
 	animator.play("close")

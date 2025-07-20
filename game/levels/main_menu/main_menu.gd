@@ -2,7 +2,7 @@
 class_name MainMenu extends Control
 
 ## Parent container of menu buttons list
-@onready var margin_container: MarginContainer = $margin_container
+@onready var margin_container: MarginContainer = $background/margin_container
 ## The button to exit the game
 @onready var exit_button: Button = margin_container.get_node("menu_buttons/exit_button")
 ## Warning for whether the player really wants to exit the game
@@ -23,6 +23,7 @@ func _ready() -> void:
 	SessionManager.animator.play("RESET")
 	GhostManager.reset()
 	AudioManager.stop_music()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if OS.get_name() == "Web":
 		exit_button.hide()
 
