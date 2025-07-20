@@ -294,7 +294,7 @@ tile_set = ExtResource("4_a0li5")
 [node name="floor1" type="Node2D" parent="floors"]
 
 [node name="start" parent="floors/floor1" instance=ExtResource("5_8pvrl")]
-position = Vector2(3537, 3694)
+position = Vector2(479, 1195)
 
 [node name="door_system" type="Node2D" parent="floors/floor1"]
 
