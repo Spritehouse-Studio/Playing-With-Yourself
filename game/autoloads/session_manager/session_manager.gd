@@ -1,13 +1,13 @@
 extends Node2D
 
-var first_scene: PackedScene = preload("uid://bwn1xmu0jd7ui")
+var main_scene: PackedScene = preload("uid://vtvlbu4ris7r")
 var reload_audio: AudioStream = preload("uid://6e6plymqvghr")
 
 @onready var animator: AnimationPlayer = $animator
 @onready var win_text: Label = $canvas_layer/win_text
 
-var last_saved_scene: PackedScene
-var last_save_point_path: String
+var current_save_point_path: String
+var current_floor: int
 
 var session_duration: float
 
@@ -27,33 +27,26 @@ func _process(delta: float) -> void:
 		global_position = camera.global_position - camera.offset
 
 func reset() -> void:
-	session_duration = 0
-	last_saved_scene = first_scene
-	await SceneManager.change_scene(last_saved_scene)
-	var save_point: SavePoint = get_tree().get_first_node_in_group("save_points")
-	if is_instance_valid(save_point):
-		last_save_point_path = save_point.get_path()
-		save_point.reload()
+	save(1, "/root/main_level/floors/floor1/contents/start")
+	reload()
 	GhostManager.reset()
-	GhostManager.reload()
-	LifeManager.start_life(15)
-	#StateManager.reset_runs()
-	AudioManager.play_audio(reload_audio, save_point.global_position)
 
 func reload() -> void:
-	await SceneManager.change_scene(last_saved_scene)
-	var save_point: SavePoint = get_tree().root.get_node_or_null(last_save_point_path)
-	if is_instance_valid(save_point):
-		save_point.reload()
+	await SceneManager.change_scene(main_scene)
+	var current_scene: MainLevel = get_tree().current_scene
+	if is_instance_valid(current_scene):
+		current_scene.load_floor(current_floor)
+		var current_save_point: SavePoint = get_node_or_null(current_save_point_path)
+		if is_instance_valid(current_save_point):
+			current_save_point.reload()
 	GhostManager.reload()
 	LifeManager.reload()
 	LifeManager.start_life(15)
-	#StateManager.reload()
-	AudioManager.play_audio(reload_audio, save_point.global_position)
+	AudioManager.play_audio(reload_audio, global_position)
 
-func save(current_scene: PackedScene, save_point_path: String) -> void:
-	last_saved_scene = current_scene
-	last_save_point_path = save_point_path
+func save(floor_number: int, save_point_path: String) -> void:
+	current_floor = floor_number
+	current_save_point_path = save_point_path
 
 func win_game() -> void:
 	animator.play("win")
