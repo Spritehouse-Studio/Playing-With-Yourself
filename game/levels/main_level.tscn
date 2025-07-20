@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=4 uid="uid://vtvlbu4ris7r"]
+[gd_scene load_steps=10 format=4 uid="uid://vtvlbu4ris7r"]
 
 [ext_resource type="Script" uid="uid://cwk6s0f1dy343" path="res://game/levels/main_level.gd" id="1_yq4s1"]
+[ext_resource type="AudioStream" uid="uid://baev12oaklnu1" path="res://game/audio/music/hideout.ogg" id="2_jk28n"]
+[ext_resource type="Script" uid="uid://cy37dvxcck6s5" path="res://game/audio/music_track.gd" id="3_d0rq5"]
 [ext_resource type="PackedScene" uid="uid://2insylhj1rx5" path="res://game/ui/life/life_timer_ui.tscn" id="4_3yugp"]
 [ext_resource type="Texture2D" uid="uid://b858br22y62gr" path="res://game/resources/tile_sets/assets/tile.png" id="5_yq4s1"]
 [ext_resource type="PackedScene" uid="uid://bpuvt3yg5eiag" path="res://game/gameplay/camera/game_camera.tscn" id="8_rug12"]
+
+[sub_resource type="Resource" id="Resource_p6ale"]
+script = ExtResource("3_d0rq5")
+audio = ExtResource("2_jk28n")
+metadata/_custom_type_script = "uid://cy37dvxcck6s5"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6qhe1"]
 texture = ExtResource("5_yq4s1")
@@ -116,6 +123,7 @@ sources/0 = SubResource("TileSetAtlasSource_6qhe1")
 
 [node name="main_level" type="Node2D"]
 script = ExtResource("1_yq4s1")
+music_track = SubResource("Resource_p6ale")
 
 [node name="canvas_layer" type="CanvasLayer" parent="."]
 
