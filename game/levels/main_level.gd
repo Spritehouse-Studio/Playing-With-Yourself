@@ -50,8 +50,8 @@ func load_floor(floor_number: int) -> void:
 		return
 	var floor: Floor = floor_prefabs[floor_number].instantiate()
 	floors_parent.add_child(floor)
-	floor.load_floor.connect(load_floor)
-	floor.unload_floor.connect(unload_floor)
+	floor.load_floor.connect(load_floor.call_deferred)
+	floor.unload_floor.connect(unload_floor.call_deferred)
 	_setup_camera(floor.tile_map)
 
 func unload_floor(floor_number: int) -> void:
