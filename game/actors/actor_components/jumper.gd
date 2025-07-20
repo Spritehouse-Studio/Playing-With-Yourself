@@ -81,7 +81,7 @@ func load_event(value: Variant) -> void:
 
 #region Non-public methods
 func _update_airborne_animation() -> void:
-	if is_instance_valid(_grounder) and not _grounder.is_grounded:
+	if not _actor_root.is_on_floor():
 		if _actor_root.velocity.y > 0:
 			_actor_root.try_play_animation("fall")
 		elif _actor_root.velocity.y < 0:

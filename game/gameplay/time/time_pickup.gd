@@ -9,6 +9,8 @@ class_name TimePickup extends Node2D
 @onready var _minute_hand: Sprite2D = _hands_offset.get_node_or_null("minute_hand")
 @onready var _second_hand: Sprite2D = _hands_offset.get_node_or_null("second_hand")
 
+var pickup_audio: AudioStream = preload("uid://ct1bborkgvmkf")
+
 var float_tween: Tween
 
 var signed_range: float:
@@ -40,6 +42,7 @@ func _reflect_float() -> void:
 	float_tween.finished.connect(_reflect_float)
 
 func _on_pickup_area_body_entered(body: Node2D) -> void:
-	if body is PlayerBase:
+	if body is PlayerBase:		
+		AudioManager.play_audio(pickup_audio, global_position)
 		LifeManager.add_time(time_gain_sec)
 		queue_free()

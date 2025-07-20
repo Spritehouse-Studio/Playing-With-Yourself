@@ -21,6 +21,7 @@ class_name HealthManager extends TrackedComponent
 #endregion
 
 var hit_audio: AudioStream = preload("uid://dw1xuqb5gyrpa")
+var death_audio: AudioStream = preload("uid://crfiogar8oc70")
 
 #region Signals
 ## Emitted when the actor takes damage from an attack.
@@ -64,10 +65,11 @@ func take_damage(attack: AttackBase) -> void:
 		_flasher.flash(hit_flash_color, 0.5, 0, 0.25, 0.25)
 	if is_instance_valid(_recoiler):
 		_recoiler.start_recoil(attack.angle, attack.force)
-	AudioManager.play_audio(hit_audio, global_position)
 	took_damage.emit(damage)
 	if current_health <= 0:
 		_die()
+	else:
+		AudioManager.play_audio(hit_audio, global_position, 0.85, 1.15)
 
 ## Add health to the actor.
 func add_health(heal_amount: float) -> void:
@@ -83,6 +85,7 @@ func load_event(value: Variant) -> void:
 #region Non-public methods
 func _die() -> void:
 	save_event(true)
+	AudioManager.play_audio(death_audio, global_position)
 	died.emit()
 	if corpse_scene != null:
 		var corpse: Node2D = corpse_scene.instantiate()

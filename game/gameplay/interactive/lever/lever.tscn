@@ -67,4 +67,4 @@ texture = ExtResource("2_3o51a")
 shape = SubResource("CircleShape2D_3ieqg")
 
 [node name="offset" type="Marker2D" parent="." index="4"]
-position = Vector2(9, -28)
+position = Vector2(9, -27)

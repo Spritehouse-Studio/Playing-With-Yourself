@@ -8,7 +8,7 @@ var component_name: String:
 
 var events: Array[GhostManager.GhostEvent]:
 	get:
-		if _actor_root.ghost_index >= len(GhostManager.all_ghost_events):
+		if _actor_root is not Ghost or _actor_root.ghost_index >= len(GhostManager.all_ghost_events):
 			return []
 		return GhostManager.all_ghost_events[_actor_root.ghost_index].events.filter(func(ev: GhostManager.GhostEvent): 
 			return ev.type == component_name)

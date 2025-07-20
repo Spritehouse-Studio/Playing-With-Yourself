@@ -37,6 +37,7 @@ SessionManager="*res://game/autoloads/session_manager/session_manager.tscn"
 
 window/size/viewport_width=960
 window/size/viewport_height=540
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
 

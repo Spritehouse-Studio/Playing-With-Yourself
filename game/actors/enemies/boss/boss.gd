@@ -14,6 +14,9 @@ var lightning_prefab_air: PackedScene = preload("uid://cik3j12thy3mv")
 
 var summon_audio: AudioStream = preload("uid://b7w54l64tu6cs")
 
+func _ready() -> void:
+	animator.play("idle")
+
 func summon_lightning() -> void:
 	var player: PlayerBase = get_tree().get_first_node_in_group("players")
 	hand_animator.play("attack")

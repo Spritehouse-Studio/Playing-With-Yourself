@@ -1,7 +1,11 @@
 class_name LifeTimerUI extends Control
 
+@export var low_time: int = 5
+
 @onready var life_progress_bar: ProgressBar = $margin_container/life_progress
 @onready var life_time_label: Label = life_progress_bar.get_node_or_null("lifetime_label")
+
+var low_time_audio: AudioStream = preload("uid://dbbmff34sdyig")
 
 func _ready() -> void:
 	life_progress_bar.max_value = LifeManager.max_time
@@ -20,6 +24,8 @@ func _process(_delta: float) -> void:
 
 func _on_time_changed(time: int) -> void:
 	_update_time_label(time)
+	if time <= low_time and time > 0:
+		AudioManager.play_audio(low_time_audio, global_position)
 
 func _on_life_started(lifetime: float) -> void:
 	life_progress_bar.max_value = lifetime

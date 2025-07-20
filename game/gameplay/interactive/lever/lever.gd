@@ -4,7 +4,6 @@ class_name Lever extends Interactable
 
 var toggle_sound: AudioStream = preload("uid://7aervxbp12sf")
 
-
 var toggled: bool
 var pulling_actor: ActorBase
 
@@ -15,18 +14,12 @@ func _process(delta: float) -> void:
 func interact(interacting: ActorBase) -> void:
 	if is_instance_valid(pulling_actor) and pulling_actor != interacting:
 		return
-	var grounder: Grounder = interacting.get_node("grounder")
-	if is_instance_valid(grounder):
-		if grounder.is_airborne:
-			return
+	if not interacting.is_on_floor():
+		return
 	if not toggled:
 		pull(interacting)
 	else:
 		release(interacting)
-
-func load_state(value: bool) -> void:
-	toggled = value
-	interact(null)
 
 func pull(interacting: ActorBase) -> void:
 	pulling_actor = interacting

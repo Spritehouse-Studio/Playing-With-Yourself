@@ -49,7 +49,7 @@ var disabled: bool:
 ## Whether the actor can perform a jump.
 var _can_jump: bool:
 	get:
-		return _coyote_timer <= coyote_time or is_instance_valid(_grounder) and _grounder.is_grounded
+		return _coyote_timer <= coyote_time or _actor_root.is_on_floor()
 
 ## Whether a jump is currently buffered
 var _jump_buffered: bool:
