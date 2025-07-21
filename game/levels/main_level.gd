@@ -7,6 +7,7 @@ class_name MainLevel extends Node2D
 ## The level's camera.
 @onready var camera: GameCamera = $game_camera
 @onready var floors_parent: Node2D = $floors
+@onready var input_tutorial_ui: InputTutorialUI = $canvas_layer/container/input_tutorial_ui
 
 var floor_prefabs: Dictionary[int, PackedScene] = {
 	1: preload("uid://bwn1xmu0jd7ui"),
@@ -52,7 +53,12 @@ func load_floor(floor_number: int) -> void:
 	floors_parent.add_child(floor)
 	floor.load_floor.connect(load_floor.call_deferred)
 	floor.unload_floor.connect(unload_floor.call_deferred)
+	for input_trigger in floor.input_triggers:
+		input_trigger.show_input.connect(show_input_tutorial)
 	_setup_camera(floor.tile_map)
+
+func show_input_tutorial(action: String) -> void:
+	input_tutorial_ui.show_input(action)
 
 func unload_floor(floor_number: int) -> void:
 	for child in floors_parent.get_children():

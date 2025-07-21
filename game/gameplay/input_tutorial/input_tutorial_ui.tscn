@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6kx5rh02sti3"]
+
+[ext_resource type="LabelSettings" uid="uid://cvqg7onn3fwwc" path="res://game/ui/title_label_settings.tres" id="1_1docl"]
+[ext_resource type="Script" uid="uid://qe5v3bmf8dxh" path="res://game/gameplay/input_tutorial/input_tutorial_ui.gd" id="1_iqtk1"]
+
+[sub_resource type="Animation" id="Animation_iqtk1"]
+resource_name = "show"
+length = 7.25
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 5.25, 7.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 7.25),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"show"
+}, {
+"args": [],
+"method": &"hide"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_h0u3y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q2dxv"]
+_data = {
+&"RESET": SubResource("Animation_h0u3y"),
+&"show": SubResource("Animation_iqtk1")
+}
+
+[node name="input_tutorial_ui" type="MarginContainer"]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 109.0
+grow_horizontal = 2
+script = ExtResource("1_iqtk1")
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_q2dxv")
+}
+
+[node name="input_container" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="action" type="Label" parent="input_container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+text = "Jump:"
+label_settings = ExtResource("1_1docl")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="panel" type="PanelContainer" parent="input_container"]
+layout_mode = 2
+
+[node name="margin_container" type="MarginContainer" parent="input_container/panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 0
+
+[node name="input_label" type="Label" parent="input_container/panel/margin_container"]
+layout_mode = 2
+label_settings = ExtResource("1_1docl")
+horizontal_alignment = 1
+vertical_alignment = 1

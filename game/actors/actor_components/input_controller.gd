@@ -71,9 +71,9 @@ func _process(delta: float) -> void:
 		_update_movement()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and is_instance_valid(_interactor):
+	if event.is_action_pressed("Interact") and is_instance_valid(_interactor):
 		_interactor.try_interact()
-	elif event.is_action_pressed("reload"):
+	elif event.is_action_pressed("Reload"):
 		if is_instance_valid(_health_manager):
 			_health_manager._die()
 		SessionManager.reload()
@@ -82,7 +82,7 @@ func _input(event: InputEvent) -> void:
 #region Non-public methods
 func _update_attack() -> void:
 	if is_instance_valid(_weapon):
-		if Input.is_action_just_pressed("attack"):
+		if Input.is_action_just_pressed("Attack"):
 			_weapon.attack()
 
 func _update_coyote_time(delta: float) -> void:
@@ -95,11 +95,11 @@ func _update_coyote_time(delta: float) -> void:
 			_coyote_timer = 0
 
 func _update_jump(delta: float) -> void:
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("Jump"):
 		if _can_jump:
 			_do_jump()
 		_jump_buffer_timer = 0
-	elif Input.is_action_just_released("jump"):
+	elif Input.is_action_just_released("Jump"):
 		_jump_buffer_timer = INF
 		if is_instance_valid(_jumper) and not _jumper.is_falling:
 			_jumper.end_jump()
@@ -108,7 +108,7 @@ func _update_jump(delta: float) -> void:
 
 func _update_movement() -> void:
 	if is_instance_valid(_mover):
-		var movement_x: float = Input.get_axis("move_left", "move_right")
+		var movement_x: float = Input.get_axis("Move Left", "Move Right")
 		_mover.move(movement_x)
 
 func _on_land(_landing_speed: float) -> void:

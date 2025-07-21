@@ -7,6 +7,12 @@ class_name Floor extends Node2D
 @onready var _load_save_point: SavePoint = get_node_or_null(load_save_point_node_path)
 @onready var _unload_save_point: SavePoint = get_node_or_null(unload_save_point_node_path)
 @onready var tile_map: TileMapLayer = $tile_map
+@onready var contents: Node2D = $contents
+
+var input_triggers: Array[Node]:
+	get:
+		return contents.get_children().filter(func(child): 
+			return child is InputTutorialTrigger)
 
 func _ready() -> void:
 	if is_instance_valid(_load_save_point) and \

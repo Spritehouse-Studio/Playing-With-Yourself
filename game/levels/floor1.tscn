@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://bwn1xmu0jd7ui"]
+[gd_scene load_steps=8 format=4 uid="uid://bwn1xmu0jd7ui"]
 
 [ext_resource type="Script" uid="uid://etqb4nwv4hd" path="res://game/levels/floor.gd" id="1_bm572"]
 [ext_resource type="TileSet" uid="uid://3bpuaeka5wu" path="res://game/resources/tile_sets/terrain.tres" id="4_hxs5x"]
 [ext_resource type="PackedScene" uid="uid://dyu3nmkobh3b0" path="res://game/autoloads/save/save_points/save_point.tscn" id="5_bx0p6"]
 [ext_resource type="PackedScene" uid="uid://sb1et3qm753e" path="res://game/gameplay/interactive/door/door.tscn" id="6_3kgod"]
+[ext_resource type="PackedScene" uid="uid://n2cssau1bw7i" path="res://game/gameplay/input_tutorial/input_tutorial_trigger.tscn" id="7_d65jr"]
 [ext_resource type="Script" uid="uid://1lrewfcn85xj" path="res://game/gameplay/interactive/signal_linker.gd" id="7_pit8y"]
 [ext_resource type="PackedScene" uid="uid://bey3vyc5h8uns" path="res://game/gameplay/interactive/lever/lever.tscn" id="8_muuuy"]
 
@@ -38,6 +39,22 @@ metadata/_custom_type_script = "uid://1lrewfcn85xj"
 position = Vector2(2350, 539)
 
 [node name="after_door" parent="contents" instance=ExtResource("5_bx0p6")]
-position = Vector2(2533, 494)
+position = Vector2(2533, 492)
+
+[node name="move_tutorial" parent="contents" instance=ExtResource("7_d65jr")]
+position = Vector2(75, 528)
+action_name = "Move Right"
+
+[node name="jump_tutorial" parent="contents" instance=ExtResource("7_d65jr")]
+position = Vector2(488, 528)
+action_name = "Jump"
+
+[node name="interact_tutorial" parent="contents" instance=ExtResource("7_d65jr")]
+position = Vector2(2136, 528)
+action_name = "Interact"
+
+[node name="reload_tutorial" parent="contents" instance=ExtResource("7_d65jr")]
+position = Vector2(2527, 529)
+action_name = "Reload"
 
 [connection signal="saved" from="contents/after_door" to="." method="_on_last_save_point_saved"]

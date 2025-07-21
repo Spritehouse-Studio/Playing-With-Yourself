@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://n2cssau1bw7i"]
+
+[ext_resource type="Script" uid="uid://4thjrmr7rna8" path="res://game/gameplay/input_tutorial/input_tutorial_trigger.gd" id="1_ghf2k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k11sm"]
+resource_local_to_scene = true
+size = Vector2(128, 32)
+
+[node name="input_tutorial_trigger" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_ghf2k")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k11sm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

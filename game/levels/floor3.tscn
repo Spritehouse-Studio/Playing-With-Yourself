@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=4 uid="uid://dfi5ntjsjflc6"]
+[gd_scene load_steps=27 format=4 uid="uid://dfi5ntjsjflc6"]
 
 [ext_resource type="Script" uid="uid://etqb4nwv4hd" path="res://game/levels/floor.gd" id="1_jd67u"]
+[ext_resource type="PackedScene" uid="uid://n2cssau1bw7i" path="res://game/gameplay/input_tutorial/input_tutorial_trigger.tscn" id="5_7ouyq"]
 [ext_resource type="TileSet" uid="uid://3bpuaeka5wu" path="res://game/resources/tile_sets/terrain.tres" id="7_bkq7k"]
 [ext_resource type="PackedScene" uid="uid://dyu3nmkobh3b0" path="res://game/autoloads/save/save_points/save_point.tscn" id="8_m2lim"]
 [ext_resource type="Script" uid="uid://1lrewfcn85xj" path="res://game/gameplay/interactive/signal_linker.gd" id="10_kq5wd"]
@@ -118,6 +119,11 @@ tile_set = ExtResource("7_bkq7k")
 
 [node name="contents" type="Node2D" parent="."]
 position = Vector2(0, 97)
+
+[node name="attack_tutorial" parent="contents" instance=ExtResource("5_7ouyq")]
+position = Vector2(253, 1937)
+scale = Vector2(2, 1)
+action_name = "Attack"
 
 [node name="enemy_room" type="Node2D" parent="contents"]
 
