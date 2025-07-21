@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfku8uh4s7uwq"]
+[gd_scene load_steps=5 format=3 uid="uid://bfku8uh4s7uwq"]
 
 [ext_resource type="Script" uid="uid://cqmubex3roitu" path="res://game/ui/stackable/settings/settings_ui.gd" id="1_oynyl"]
 [ext_resource type="PackedScene" uid="uid://hhh5ydqhefgu" path="res://game/ui/menu_button/menu_button.tscn" id="2_thku7"]
-[ext_resource type="PackedScene" uid="uid://bgeonmcn3dbe" path="res://game/ui/stackable/settings/accessibility_settings_panel.tscn" id="3_76byv"]
 [ext_resource type="PackedScene" uid="uid://8cpaose5wjaw" path="res://game/ui/stackable/settings/audio_settings_panel.tscn" id="4_7pee2"]
 [ext_resource type="PackedScene" uid="uid://daa7bv3d5xd68" path="res://game/ui/stackable/settings/input_bindings_panel.tscn" id="5_72h0o"]
 
@@ -16,7 +15,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_oynyl")
-child_uis = [NodePath("margin_container"), NodePath("accessibility_settings_panel"), NodePath("audio_settings_panel"), NodePath("input_bindings_panel")]
+child_uis = [NodePath("margin_container"), NodePath("audio_settings_panel"), NodePath("input_bindings_panel")]
 default_ui = NodePath("margin_container")
 
 [node name="margin_container" type="MarginContainer" parent="."]
@@ -29,10 +28,6 @@ grow_vertical = 2
 
 [node name="menu_buttons" type="VBoxContainer" parent="margin_container"]
 layout_mode = 2
-
-[node name="accessibility_settings_button" parent="margin_container/menu_buttons" instance=ExtResource("2_thku7")]
-layout_mode = 2
-text = "Accessibility"
 
 [node name="audio_settings_button" parent="margin_container/menu_buttons" instance=ExtResource("2_thku7")]
 layout_mode = 2
@@ -50,10 +45,6 @@ size_flags_vertical = 3
 layout_mode = 2
 text = "Back"
 
-[node name="accessibility_settings_panel" parent="." instance=ExtResource("3_76byv")]
-visible = false
-layout_mode = 1
-
 [node name="audio_settings_panel" parent="." instance=ExtResource("4_7pee2")]
 visible = false
 layout_mode = 1
@@ -63,8 +54,6 @@ visible = false
 layout_mode = 1
 
 [connection signal="uis_emptied" from="." to="." method="_on_uis_emptied"]
-[connection signal="pressed" from="margin_container/menu_buttons/accessibility_settings_button" to="." method="_on_accessibility_settings_pressed"]
-[connection signal="pressed" from="margin_container/menu_buttons/accessibility_settings_button" to="." method="_on_accessibility_settings_button_pressed"]
 [connection signal="pressed" from="margin_container/menu_buttons/audio_settings_button" to="." method="_on_audio_settings_button_pressed"]
 [connection signal="pressed" from="margin_container/menu_buttons/input_bindings_button" to="." method="_on_input_bindings_button_pressed"]
 [connection signal="pressed" from="margin_container/menu_buttons/back_button" to="." method="_on_back_button_pressed"]

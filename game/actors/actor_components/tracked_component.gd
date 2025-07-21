@@ -55,7 +55,8 @@ func save_event(value: Variant) -> void:
 		event.type = component_name
 		event.value = value
 		event.ghost_position = _actor_root.global_position
-		GhostManager.all_ghost_events[GhostManager.ghosts.size()].events.append(event)
+		if len(GhostManager.all_ghost_events) > len(GhostManager.ghosts):
+			GhostManager.all_ghost_events[len(GhostManager.ghosts)].events.append(event)
 
 func load_event(value: Variant) -> void:
 	pass

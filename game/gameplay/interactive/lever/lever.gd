@@ -37,7 +37,8 @@ func pull(interacting: ActorBase) -> void:
 	AudioManager.play_audio(toggle_sound, global_position, 0.75, 1.25)
 	#if interacting is PlayerBase:
 		#StateManager.save_state(get_path(), true)
-	super.interact(interacting)
+	if is_instance_valid(interacting):
+		super.interact(interacting)
 
 func release(interacting: ActorBase) -> void:
 	animator.play("release")
@@ -51,4 +52,5 @@ func release(interacting: ActorBase) -> void:
 	AudioManager.play_audio(toggle_sound, global_position, 0.75, 1.25)
 	toggled = false
 	pulling_actor = null
-	super.interact(interacting)
+	if is_instance_valid(interacting):
+		super.interact(interacting)

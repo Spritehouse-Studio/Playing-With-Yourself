@@ -31,3 +31,5 @@ func change_scene_transition(scene: PackedScene, transition_name: String, enter_
 
 func go_to_main_menu() -> void:
 	change_scene(main_menu_scene)
+	LifeManager.stop()
+	SessionManager.stop()

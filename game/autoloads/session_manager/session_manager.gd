@@ -11,6 +11,8 @@ var current_floor: int
 
 var session_duration: float
 
+var started: bool
+
 var camera: GameCamera:
 	get:
 		if get_tree().current_scene is MainLevel:
@@ -22,11 +24,14 @@ func _ready() -> void:
 	$canvas_layer/blur.texture = ImageTexture.create_from_image(viewport_texture.get_image())
 
 func _process(delta: float) -> void:
+	if not started:
+		return
 	session_duration += delta
 	if is_instance_valid(camera):
 		global_position = camera.global_position - camera.offset
 
 func reset() -> void:
+	started = true
 	save(1, "/root/main_level/floors/floor1/contents/start")
 	reload()
 	GhostManager.reset()
@@ -47,6 +52,10 @@ func reload() -> void:
 func save(floor_number: int, save_point_path: String) -> void:
 	current_floor = floor_number
 	current_save_point_path = save_point_path
+
+func stop() -> void:
+	started = false
+	session_duration = 0
 
 func win_game() -> void:
 	animator.play("win")

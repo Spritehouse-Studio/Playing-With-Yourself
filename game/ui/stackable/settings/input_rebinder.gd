@@ -37,24 +37,27 @@ func _ready() -> void:
 	var key_or_mouse_input_actions = action_events.filter(func(event): return event is InputEventKey or event is InputEventMouseButton)
 	if len(key_or_mouse_input_actions) <= 0:
 		rebind_key_or_mouse_button.text = "None"
-	elif key_or_mouse_input_actions[0] is InputEventKey:
-		rebind_key_or_mouse_button.text = OS.get_keycode_string(key_or_mouse_input_actions[0].physical_keycode)
-	elif key_or_mouse_input_actions[0] is InputEventMouseButton:
-		rebind_key_or_mouse_button.text = key_or_mouse_input_actions[0].as_text()
-		
+	elif key_or_mouse_input_actions[0] is InputEventKey or InputEventMouseButton:
+		var button_text: String = InputManager.name_input(action_name, key_or_mouse_input_actions[0])
+		rebind_key_or_mouse_button.text = button_text
+		rebind_key_or_mouse_button.tooltip_text = button_text
 	var joypad_input_actions = action_events.filter(func(event): return event is InputEventJoypadButton or event is InputEventJoypadMotion)
 	if len(joypad_input_actions) <= 0:
 		rebind_joy_button.text = "None"
 	elif joypad_input_actions[0] is InputEventJoypadButton or joypad_input_actions[0] is InputEventJoypadMotion:
-		rebind_joy_button.text = joypad_input_actions[0].as_text()
+		var button_text: String = InputManager.name_input(action_name, joypad_input_actions[0])
+		rebind_joy_button.text = button_text
+		rebind_joy_button.tooltip_text = button_text
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		rebinding_key_or_mouse_button = false
 		rebinding_joypad = false
 		enable_rebind_buttons()
+		rebind_key_or_mouse_button.release_focus()
+		rebind_joy_button.release_focus()
 		return
-				
+
 	if rebinding_key_or_mouse_button:
 		if event is InputEventKey:
 			rebind_key(event)
@@ -109,7 +112,9 @@ func rebind_key(key: InputEventKey) -> void:
 		SaveManager.settings.input_events[action_name].append(key)
 	else:
 		SaveManager.settings.input_events[action_name] = [key]
-	rebind_key_or_mouse_button.text = OS.get_keycode_string(key.physical_keycode)
+	var button_text: String = InputManager.name_input(action_name, key)
+	rebind_key_or_mouse_button.text = button_text
+	rebind_key_or_mouse_button.tooltip_text = button_text
 	enable_rebind_buttons()
 	key_rebound.emit(action_name, key)
 
@@ -121,7 +126,9 @@ func rebind_mouse_button(mouse_button: InputEventMouseButton) -> void:
 		SaveManager.settings.input_events[action_name].append(mouse_button)
 	else:
 		SaveManager.settings.input_events[action_name] = [mouse_button]
-	rebind_key_or_mouse_button.text = mouse_button.as_text()
+	var button_text: String = InputManager.name_input(action_name, mouse_button)
+	rebind_key_or_mouse_button.text = button_text
+	rebind_key_or_mouse_button.tooltip_text = button_text
 	enable_rebind_buttons()
 	mouse_rebound.emit(action_name, mouse_button)
 
@@ -135,7 +142,9 @@ func rebind_joystick(joystick: InputEventJoypadMotion) -> void:
 		SaveManager.settings.input_events[action_name].append(joystick)
 	else:
 		SaveManager.settings.input_events[action_name] = [joystick]
-	rebind_joy_button.text = joystick.as_text()
+	var button_text: String = InputManager.name_input(action_name, joystick)
+	rebind_joy_button.text = button_text
+	rebind_joy_button.tooltip_text = button_text
 	enable_rebind_buttons()
 	joystick_rebound.emit(action_name, joystick)
 
@@ -149,7 +158,9 @@ func rebind_joypad_button(joypad_button: InputEventJoypadButton) -> void:
 		SaveManager.settings.input_events[action_name].append(joypad_button)
 	else:
 		SaveManager.settings.input_events[action_name] = [joypad_button]
-	rebind_joy_button.text = joypad_button.as_text()
+	var button_text: String = InputManager.name_input(action_name, joypad_button)
+	rebind_joy_button.text = button_text
+	rebind_joy_button.tooltip_text = button_text
 	enable_rebind_buttons()
 	joypad_button_rebound.emit(action_name, joypad_button)
 
